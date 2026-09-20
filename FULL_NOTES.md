@@ -23,30 +23,30 @@
 # Toy model] 추가 제약 정리
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 [image omitted: temporary Notion asset]
 ## **제약 1. 계절성 수요를 고려한 재고관리**
-<callout color="gray_bg">
-	### 1. 연구 주제 소개
-	- 기본 toy model은 수요 분포가 모든 기간 동안 동일하다고 가정
-	- 하지만 현실에서는 시간에 따라 수요가 변함
-	- 본 주제에서는 **계절성 수요**를 추가로 고려
-	- 즉, 시점에 따라 평균 수요가 달라지는 재고관리 문제를 다룸
-</callout>
+
+### 1. 연구 주제 소개
+- 기본 toy model은 수요 분포가 모든 기간 동안 동일하다고 가정
+- 하지만 현실에서는 시간에 따라 수요가 변함
+- 본 주제에서는 **계절성 수요**를 추가로 고려
+- 즉, 시점에 따라 평균 수요가 달라지는 재고관리 문제를 다룸
+
 ---
 #### 1-1. 추가적으로 고려한 제약
 - 기존 수요 가정
-	$$
-	d_{t} \thicksim Poisson(25)
-	$$
+$$
+d_{t} \thicksim Poisson(25)
+$$
 - 확장 수요 가정
-	$$
-	d_{t} \thicksim Poisson(\lambda_{t})
-	$$
-	- λt는 시간 t에 따라 변하는 평균 수요
-	- 성수기에는 λt 증가
-	- 비수기에는 λt 감소
+$$
+d_{t} \thicksim Poisson(\lambda_{t})
+$$
+- λt는 시간 t에 따라 변하는 평균 수요
+- 성수기에는 λt 증가
+- 비수기에는 λt 감소
 #### 1-2. 왜 고려했는가
 - 현실의 수요는 항상 일정하지 않음
 - 계절, 이벤트, 특정 기간에 따라 수요가 달라짐
@@ -67,8 +67,8 @@ s_{t} = (x_{t},t)
 $$
 - xt : 현재 재고량
 - t : 현재 시점
-	- 기존 모형은 재고량만 고려했지만, 계절성 수요에서는 시간이 중요
-	- 같은 재고량이라도 성수기인지 비수기인지에 따라 주문량이 달라질 수 있음
+- 기존 모형은 재고량만 고려했지만, 계절성 수요에서는 시간이 중요
+- 같은 재고량이라도 성수기인지 비수기인지에 따라 주문량이 달라질 수 있음
 ---
 #### Action → 현재 시점에 몇 개를 주문할지 결정
 $$
@@ -83,15 +83,15 @@ $$
 d_{t} \thicksim Poisson(\lambda_{t})
 $$
 - λt: 시점에 따라 변하는 평균 수요
-	- 계절성 수요에서는 평균 수요가 항상 같지 않음
+- 계절성 수요에서는 평균 수요가 항상 같지 않음
 - 예시 :
-	$$
-	\lambda_t =
+$$
+\lambda_t =
 \begin{cases}
 \lambda_{high}, & \text{성수기} \\
 \lambda_{low}, & \text{비수기}
 \end{cases}
-	$$
+$$
 ---
 #### Transition
 $$
@@ -100,7 +100,7 @@ $$
 - xt+1: 다음 재고량
 - zt: 결품량
 - C: 창고 물량
-	- 재고는 0보다 작아질 수 없고, 창고 용량 C를 넘을 수 없음
+- 재고는 0보다 작아질 수 없고, 창고 용량 C를 넘을 수 없음
 ---
 #### Reward
 $$
@@ -110,8 +110,8 @@ $$
 - cq_t: 단위 주문 비용
 - hx_(t+1): 재고 유지 비용
 - pz_t: 결품 비용
-	- 재고관리 문제는 비용을 최소화하는 문제
-	- 강화학습은 보상을 최대화하는 구조이므로, 비용의 음수를 reward로 사용
+- 재고관리 문제는 비용을 최소화하는 문제
+- 강화학습은 보상을 최대화하는 구조이므로, 비용의 음수를 reward로 사용
 ---
 #### Objective
 $$
@@ -128,23 +128,23 @@ $$
 $$
 ---
 ## 제약 2. 입고 지연을 고려한 재고관리
-<callout color="gray_bg">
-	### 1. 연구 주제 소개
-	- 기본 toy model은 주문한 물량이 즉시 입고된다고 가정
-	- 하지만 현실에서는 주문 후 생산, 배송, 검수 등의 시간이 필요함
-	- 본 주제에서는 **입고 지연 lead time**을 추가로 고려
-	- 즉, 주문한 물량이 일정 기간 뒤에 입고되는 재고관리 문제를 다룸
-</callout>
+
+### 1. 연구 주제 소개
+- 기본 toy model은 주문한 물량이 즉시 입고된다고 가정
+- 하지만 현실에서는 주문 후 생산, 배송, 검수 등의 시간이 필요함
+- 본 주제에서는 **입고 지연 lead time**을 추가로 고려
+- 즉, 주문한 물량이 일정 기간 뒤에 입고되는 재고관리 문제를 다룸
+
 ---
 #### 1-1. 추가적으로 고려한 제약
 - 기존 모형
-	- 주문하면 당일 바로 입고
+- 주문하면 당일 바로 입고
 - 확장 모형
-	- 주문 후 L기간 뒤에 입고
+- 주문 후 L기간 뒤에 입고
 - 시점 t에 주문한 qt는 t+L 시점에 입고
-	$$
-	q_t \rightarrow t+L \text{ 시점에 입고}
-	$$
+$$
+q_t \rightarrow t+L \text{ 시점에 입고}
+$$
 - 아직 도착하지 않은 주문량을 pipeline inventory로 관리
 #### 1-2. 왜 고려했는가
 - 현실에서는 주문 즉시 상품이 도착하지 않음
@@ -170,9 +170,9 @@ $$
 - t: 현재 시점
 - ut(1): 다음 기간에 입고될 주문량
 - ut(L): L기간 후 입고될 주문량
-	- 상태는 **현재 재고량**, **현재 시점**, **아직 도착하지 않은 주문량**으로 정의
-	- 입고 지연이 있으면 주문한 물량이 바로 사용되지 않음
-	- 따라서 앞으로 도착할 주문량까지 state에 포함해야 함
+- 상태는 **현재 재고량**, **현재 시점**, **아직 도착하지 않은 주문량**으로 정의
+- 입고 지연이 있으면 주문한 물량이 바로 사용되지 않음
+- 따라서 앞으로 도착할 주문량까지 state에 포함해야 함
 ---
 #### Action
 $$
@@ -197,25 +197,25 @@ $$
 ---
 #### Transition
 - 먼저 도착 예정이었던 주문량이 입고됨
-	- 이번 시점에 도착하는 물량은 ut(1)
-	- 즉, 과거에 주문했던 물량 중 도착 시점이 된 물량이 현재 재고에 추가됨
+- 이번 시점에 도착하는 물량은 ut(1)
+- 즉, 과거에 주문했던 물량 중 도착 시점이 된 물량이 현재 재고에 추가됨
 $$
 arrival_t = u_t^{(1)}
 $$
 - 입고 후 재고
-	- 창고 용량 C를 넘을 수 없기 때문에 min(C,⋅) 사용
+- 창고 용량 C를 넘을 수 없기 때문에 min(C,⋅) 사용
 $$
 \tilde{x}_t = \min(C, x_t + arrival_t)
 $$
 - 수요 발생 후 다음 재고
-	- 입고 후 재고에서 수요만큼 빠짐
-	- 재고는 0보다 작아질 수 없음
+- 입고 후 재고에서 수요만큼 빠짐
+- 재고는 0보다 작아질 수 없음
 $$
 x_{t+1} = \max(\tilde{x}_t - d_t, 0)
 $$
 - 결품량
-	- 수요가 입고 후 재고보다 크면 부족한 만큼 결품 발생
-	- 수요를 모두 만족하면 결품은 0
+- 수요가 입고 후 재고보다 크면 부족한 만큼 결품 발생
+- 수요를 모두 만족하면 결품은 0
 $$
 z_t = \max(d_t - \tilde{x}_t, 0)
 $$
@@ -255,21 +255,18 @@ $$
 # Dual Sourcing + Lead time 불확실성
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
-## <span color="gray_bg">논문 1. Dual Sourcing with Stochastic Lead Times</span>
+## 논문 1. Dual Sourcing with Stochastic Lead Times
 
 ---
 ### 1. 논문에서 다루는 재고관리 문제
 - 단일 제품 재고관리 문제
 - 하나의 공급처가 아니라 **두 개의 공급처**를 고려
-	[image omitted: temporary Notion asset]
-	- 공급 구조 :
-		<table header-row="true">
-		<colgroup>
-		<col>
-		<col width="270.5208435058594">
-		</colgroup>
+[image omitted: temporary Notion asset]
+- 공급 구조 :
+<table header-row="true">
+
 <tr>
 <td>구분</td>
 <td>의미</td>
@@ -290,23 +287,19 @@ $$
 <td>Demand</td>
 <td>고객 수요</td>
 </tr>
-		</table>
-	- 일반 공급처 normal source
-		- 비용이 낮지만 리드타임이 김
-		- 일반 공급처 주문 :  Server 1 → Server 2 → Stock
-	- 긴급 공급처 emergency source
-		- 비용이 높지만 더 빠르게 입고 가능
-		- 긴급 공급처 주문 :  Server 2 → Stock
-	- 수요는 Poisson demand
+</table>
+- 일반 공급처 normal source
+- 비용이 낮지만 리드타임이 김
+- 일반 공급처 주문 :  Server 1 → Server 2 → Stock
+- 긴급 공급처 emergency source
+- 비용이 높지만 더 빠르게 입고 가능
+- 긴급 공급처 주문 :  Server 2 → Stock
+- 수요는 Poisson demand
 - 재고 부족은 lost sales가 아니라 **backlogging**으로 처리
 - 리드타임은 고정값이 아니라 queueing system에 의해 확률적으로 결정
 ### 2. 기존 toy model과의 차이
 <table header-row="true">
-<colgroup>
-<col width="110">
-<col width="183.1354217529297">
-<col width="397">
-</colgroup>
+
 <tr>
 <td>**구분**</td>
 <td>**기존 toy model**</td>
@@ -355,145 +348,142 @@ $$
 </table>
 ### 3. MDP 환경 정의
 - **state**
-	>
-		$$
-		s_t = (IN(t), N_2(t), N_1(t))
-		$$
-		- IN(t) : 순재고
-			- 현재 보유 재고에서 backlog를 뺀 값
-			- 지금 재고가 얼마나 있는지
-		- N1(t) : server 1에서 대기 또는 처리 중인 주문 수
-			- 일반 공급처 쪽 첫 번째 단계에 주문이 얼마나 밀려 있는지
-		- N2(t) : server 2에서 대기 또는 처리 중인 주문 수
-			- 두 번째 단계에 주문이 얼마나 밀려 있는지
+>
+$$
+s_t = (IN(t), N_2(t), N_1(t))
+$$
+- IN(t) : 순재고
+- 현재 보유 재고에서 backlog를 뺀 값
+- 지금 재고가 얼마나 있는지
+- N1(t) : server 1에서 대기 또는 처리 중인 주문 수
+- 일반 공급처 쪽 첫 번째 단계에 주문이 얼마나 밀려 있는지
+- N2(t) : server 2에서 대기 또는 처리 중인 주문 수
+- 두 번째 단계에 주문이 얼마나 밀려 있는지
 - **Action**
-	>
-		논문에서의 의사결정은 단순히 주문량 하나를 고르는 것 X
-		- 일반 공급처에 주문할지
-		- 긴급 공급처에 주문할지
-		- 얼마나 주문할지
-		- 아무것도 하지 않을지를 결정
-		$$
-		a_t = (q_t^N, q_t^E)
-		$$
-		- qt\^N : normal source 주문량
-		- qt\^E : emergency source 주문량
+>
+논문에서의 의사결정은 단순히 주문량 하나를 고르는 것 X
+- 일반 공급처에 주문할지
+- 긴급 공급처에 주문할지
+- 얼마나 주문할지
+- 아무것도 하지 않을지를 결정
+$$
+a_t = (q_t^N, q_t^E)
+$$
+- qt\^N : normal source 주문량
+- qt\^E : emergency source 주문량
 - **Demand **
-	>
-		논문에서는 수요가 Poisson process
-		$$
-		d_t \sim Poisson(\lambda)
-		$$
-		- λ : 평균 수요율
-		- 수요는 확률적으로 발생
-		- 수요가 재고보다 많으면 backlog가 증가
+>
+논문에서는 수요가 Poisson process
+$$
+d_t \sim Poisson(\lambda)
+$$
+- λ : 평균 수요율
+- 수요는 확률적으로 발생
+- 수요가 재고보다 많으면 backlog가 증가
 - **Lead Time **
-	>
-		🌟 논문의 핵심은 리드타임이 고정되어 있지 않다는 점
-			→ 그때그떄 걸리는 시간이 랜덤하게 달라짐
-		- 일반 공급처:
-			- server 1 → server 2 → 재고
-		- 긴급 공급처:
-			- server 1을 건너뛰고 server 2로 바로 이동
-		→   처리시간은 exponential distribution을 따름
-		$$
-		T_i \sim Exp(\mu_i), \quad i = 1,2
-		$$
-		- μi : server i의 처리율
-		- 처리시간이 확률적이므로 실제 리드타임도 확률적으로 변함
+>
+🌟 논문의 핵심은 리드타임이 고정되어 있지 않다는 점
+→ 그때그떄 걸리는 시간이 랜덤하게 달라짐
+- 일반 공급처:
+- server 1 → server 2 → 재고
+- 긴급 공급처:
+- server 1을 건너뛰고 server 2로 바로 이동
+→   처리시간은 exponential distribution을 따름
+$$
+T_i \sim Exp(\mu_i), \quad i = 1,2
+$$
+- μi : server i의 처리율
+- 처리시간이 확률적이므로 실제 리드타임도 확률적으로 변함
 - **Transition**
-	>
-		논문에서는 사건이 발생할 때마다 상태가 바뀜
-		- 주요 사건  세 가지 :
-			1. 수요 발생
-			2. server 1 처리 완료
-			3. server 2 처리 완료
-				1. <span color="yellow_bg">수요 발생</span> → 수요가 발생하면 순재고가 감소
-			$$
-			IN(t+1) = IN(t) - d_t
-			$$
-			- 재고가 충분하면 재고 감소
-			- 재고가 부족하면 backlog 증가
-					2. <span color="yellow_bg">server 1 처리 완료</span> → server 1에서 처리가 끝나면 주문이 server 2로 이동
-			$$
-			N_1(t+1) = N_1(t) - 1
-			$$
-			$$
-			N_2(t+1) = N_2(t) + 1
-			$$
-					3. <span color="yellow_bg">server 2 처리 완료</span> → server 2에서 처리가 끝나면 제품이 재고로 입고
-			$$
-			N_2(t+1) = N_2(t) - 1
-			$$
-			$$
-			IN(t+1) = IN(t) + 1
-			$$
+>
+논문에서는 사건이 발생할 때마다 상태가 바뀜
+- 주요 사건  세 가지 :
+1. 수요 발생
+2. server 1 처리 완료
+3. server 2 처리 완료
+1. 수요 발생 → 수요가 발생하면 순재고가 감소
+$$
+IN(t+1) = IN(t) - d_t
+$$
+- 재고가 충분하면 재고 감소
+- 재고가 부족하면 backlog 증가
+2. server 1 처리 완료 → server 1에서 처리가 끝나면 주문이 server 2로 이동
+$$
+N_1(t+1) = N_1(t) - 1
+$$
+$$
+N_2(t+1) = N_2(t) + 1
+$$
+3. server 2 처리 완료 → server 2에서 처리가 끝나면 제품이 재고로 입고
+$$
+N_2(t+1) = N_2(t) - 1
+$$
+$$
+IN(t+1) = IN(t) + 1
+$$
 - **Cost**
-	>
-		논문의 비용은 다음 요소로 구성 :
-			- c1 : normal source 주문 비용
-			- c2 : emergency source 주문 비용
-				- c2\>c1
-			- h1 : server 1에 있는 주문의 holding cost
-			- h2 : server 2에 있는 주문의 holding cost
-			- h : 완제품 재고 holding cost
-			- b : backlog cost
-		$$
-		Cost_t = c_1 q_t^N + c_2 q_t^E + h_1 N_1(t) + h_2 N_2(t) + h(IN(t))^+ + b(IN(t))^-
-		$$
-				1. <span color="yellow_bg">양의 재고</span>
-			$$
-			(IN(t))^+ = \max(IN(t), 0)
-			$$
-			- IN(t)\>0 → 실제로 창고에 남아 있는 재고
-			- IN(t)\<0 → 재고는 없으므로 0
-					2. <span color="yellow_bg">Backlog</span>
-			$$
-			(IN(t))^- = \max(-IN(t), 0)
-			$$
-			- IN(t)\<0이면 아직 처리하지 못한 밀린 주문량
-			- IN(t)\>0이면 backlog는 0
+>
+논문의 비용은 다음 요소로 구성 :
+- c1 : normal source 주문 비용
+- c2 : emergency source 주문 비용
+- c2\>c1
+- h1 : server 1에 있는 주문의 holding cost
+- h2 : server 2에 있는 주문의 holding cost
+- h : 완제품 재고 holding cost
+- b : backlog cost
+$$
+Cost_t = c_1 q_t^N + c_2 q_t^E + h_1 N_1(t) + h_2 N_2(t) + h(IN(t))^+ + b(IN(t))^-
+$$
+1. 양의 재고
+$$
+(IN(t))^+ = \max(IN(t), 0)
+$$
+- IN(t)\>0 → 실제로 창고에 남아 있는 재고
+- IN(t)\<0 → 재고는 없으므로 0
+2. Backlog
+$$
+(IN(t))^- = \max(-IN(t), 0)
+$$
+- IN(t)\<0이면 아직 처리하지 못한 밀린 주문량
+- IN(t)\>0이면 backlog는 0
 - **Objective**
-	>
-		논문은 최적 주문 정책을 찾기 위해 두 가지 목적함수를 고려
-		- 두 가지 목적함수 :
-			1. Discounted cost
-			2. Long-run average cost
-				1. <span color="yellow_bg">Discounted cost</span>
-			- 미래 비용을 현재보다 조금 덜 중요하게 보는 방식
-			- 가까운 시점의 비용은 크게 반영
-			- 먼 미래의 비용은 γt만큼 할인해서 반영
-				- 예를 들어 γ=0.9라면,
-					- 지금 비용: Cost0
-					- 1번 뒤 비용: 0.9Cost1
-					- 2번 뒤 비용: (0.9)\^2Cost2 = 0.81Cost2
-					- 10번 뒤 비용: (0.9)\^10Cost10
-			- 0\<γ\<1
-			$$
-			\min_{\pi} E_{\pi} \left[\sum_{t=0}^{\infty} \gamma^t Cost_t \right]
-			$$
-				1. <span color="yellow_bg">Long-run average cost</span>
-			- 아주 긴 기간 동안 운영한다고 가정
-			- 전체 비용을 기간 수로 나누어 **기간당 평균 비용**을 최소화
-				- 예를 들어 100일 동안 총 비용이 1000이면,
-					- 1000/100 = 10
-					- 즉, 하루 평균 비용은 10
-			- 장기적으로 안정적인 운영 정책을 찾는 목적함수
-			$$
-			\min_{\pi} \limsup_{T \to \infty} \frac{1}{T} E_{\pi} \left[\sum_{t=0}^{T-1} Cost_t \right]
-			$$
+>
+논문은 최적 주문 정책을 찾기 위해 두 가지 목적함수를 고려
+- 두 가지 목적함수 :
+1. Discounted cost
+2. Long-run average cost
+1. Discounted cost
+- 미래 비용을 현재보다 조금 덜 중요하게 보는 방식
+- 가까운 시점의 비용은 크게 반영
+- 먼 미래의 비용은 γt만큼 할인해서 반영
+- 예를 들어 γ=0.9라면,
+- 지금 비용: Cost0
+- 1번 뒤 비용: 0.9Cost1
+- 2번 뒤 비용: (0.9)\^2Cost2 = 0.81Cost2
+- 10번 뒤 비용: (0.9)\^10Cost10
+- 0\<γ\<1
+$$
+\min_{\pi} E_{\pi} \left[\sum_{t=0}^{\infty} \gamma^t Cost_t \right]
+$$
+1. Long-run average cost
+- 아주 긴 기간 동안 운영한다고 가정
+- 전체 비용을 기간 수로 나누어 **기간당 평균 비용**을 최소화
+- 예를 들어 100일 동안 총 비용이 1000이면,
+- 1000/100 = 10
+- 즉, 하루 평균 비용은 10
+- 장기적으로 안정적인 운영 정책을 찾는 목적함수
+$$
+\min_{\pi} \limsup_{T \to \infty} \frac{1}{T} E_{\pi} \left[\sum_{t=0}^{T-1} Cost_t \right]
+$$
 ---
-## <span color="gray_bg">논문 2. Dual Sourcing + Order Tracking + Uncertain Lead Times</span>
+## 논문 2. Dual Sourcing + Order Tracking + Uncertain Lead Times
 
 ---
 ### 1. 논문에서 다루는 재고관리 문제
 - 단일 제품 재고관리 문제
 - 두 개의 공급처를 사용함
-	<table header-row="true">
-	<colgroup>
-	<col>
-	<col width="463">
-	</colgroup>
+<table header-row="true">
+
 <tr>
 <td>공급처</td>
 <td>특징</td>
@@ -506,7 +496,7 @@ $$
 <td>Emergency source</td>
 <td>비싸지만 빠름</td>
 </tr>
-	</table>
+</table>
 [image omitted: temporary Notion asset]
 - Normal order는 두 단계의 공급 과정을 모두 거침
 - Emergency order는 첫 번째 단계를 건너뛰고 두 번째 단계로 바로 들어감
@@ -514,15 +504,11 @@ $$
 - 주문이 현재 어느 단계까지 처리되었는지를 추적할 수 있음
 - 수요는 Poisson process를 따름
 - 미충족 수요는 두 방식으로 고려
-	- Backlogging
-	- Lost sales
+- Backlogging
+- Lost sales
 ### 2. 기존 toy model과의 차이
 <table header-row="true">
-<colgroup>
-<col>
-<col width="171.20834350585938">
-<col width="368">
-</colgroup>
+
 <tr>
 <td>구분</td>
 <td>기존 toy model</td>
@@ -575,20 +561,17 @@ $$
 - 예를 들어 normal order가 server 1에서 30% 처리되었는지, server 2에서 70% 처리되었는지를 state에 반영
 - 이 정보가 있으면 남은 리드타임을 더 정확히 예측할 수 있음
 - 중요한 이유 :
-	- 리드타임이 불확실할 때, 현재 재고만 보고 주문하면 부족함
-	- 이미 주문한 물량이 곧 도착할지, 한참 뒤에 도착할지에 따라 주문 결정이 달라져야 함
-	- 따라서 order tracking 정보는 더 정교한 주문 정책을 만드는 데 도움을 줌
+- 리드타임이 불확실할 때, 현재 재고만 보고 주문하면 부족함
+- 이미 주문한 물량이 곧 도착할지, 한참 뒤에 도착할지에 따라 주문 결정이 달라져야 함
+- 따라서 order tracking 정보는 더 정교한 주문 정책을 만드는 데 도움을 줌
 ### 4. MDP 환경 정의
 - **State**
-	>
-		$$
-		s_t = (IN(t), W_2(t), N_2(t), W_1(t), N_1(t))
-		$$
-		<table header-row="true">
-		<colgroup>
-		<col width="173">
-		<col width="412">
-		</colgroup>
+>
+$$
+s_t = (IN(t), W_2(t), N_2(t), W_1(t), N_1(t))
+$$
+<table header-row="true">
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -613,29 +596,26 @@ $$
 <td>W_2(t)</td>
 <td>server 2에서 현재 처리 중인 주문의 완료 비율</td>
 </tr>
-		</table>
-		- W_1(t), W_2(t)가 바로 order tracking 정보
-		- 즉, 주문이 각 server에서 얼마나 진행되었는지를 나타냄
+</table>
+- W_1(t), W_2(t)가 바로 order tracking 정보
+- 즉, 주문이 각 server에서 얼마나 진행되었는지를 나타냄
 - **State 축소**
-	> 5차원 state를 그대로 쓰면 복잡하므로, 다음 3개 변수로 줄임
-		$$
-		X(t) = IN(t) + W_2(t)
-		$$
-		$$
-		Y(t) = N_2(t) - W_2(t)
-		$$
-		$$
-		Z(t) = N_1(t) - W_1(t)
-		$$
-		- 축소된 state :
-			$$
-			s_t = (X(t), Y(t), Z(t))
-			$$
-		<table header-row="true">
-		<colgroup>
-		<col>
-		<col width="450">
-		</colgroup>
+> 5차원 state를 그대로 쓰면 복잡하므로, 다음 3개 변수로 줄임
+$$
+X(t) = IN(t) + W_2(t)
+$$
+$$
+Y(t) = N_2(t) - W_2(t)
+$$
+$$
+Z(t) = N_1(t) - W_1(t)
+$$
+- 축소된 state :
+$$
+s_t = (X(t), Y(t), Z(t))
+$$
+<table header-row="true">
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -652,20 +632,17 @@ $$
 <td>Z(t)</td>
 <td>server 1의 workload</td>
 </tr>
-		</table>
-		- X(t): 재고가 얼마나 여유 있는지
-		- Y(t): server 2가 얼마나 밀려 있는지
-		- Z(t): server 1이 얼마나 밀려 있는지
+</table>
+- X(t): 재고가 얼마나 여유 있는지
+- Y(t): server 2가 얼마나 밀려 있는지
+- Z(t): server 1이 얼마나 밀려 있는지
 - **Action**
-	> 논문에서 action은 두 공급처에서 얼마나 주문할지를 결정하는 것
-		$$
-		a_t = (q_1, q_2)
-		$$
-		<table header-row="true">
-		<colgroup>
-		<col>
-		<col width="432.8854217529297">
-		</colgroup>
+> 논문에서 action은 두 공급처에서 얼마나 주문할지를 결정하는 것
+$$
+a_t = (q_1, q_2)
+$$
+<table header-row="true">
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -678,40 +655,36 @@ $$
 <td>(q_2)</td>
 <td>emergency source 주문량</td>
 </tr>
-		</table>
-		- q1: server 1로 들어가는 주문
-		- q2: server 1을 건너뛰고 server 2로 바로 들어가는 주문
-		- emergency source는 더 빠르지만 단위 주문 비용이 더 높음
+</table>
+- q1: server 1로 들어가는 주문
+- q2: server 1을 건너뛰고 server 2로 바로 들어가는 주문
+- emergency source는 더 빠르지만 단위 주문 비용이 더 높음
 - **Demand**
-	> 수요는 Poisson process를 따름
-		$$
-		D_t \sim Poisson(\lambda)
-		$$
-		- λ : 수요 도착률
-		- 수요가 발생하면 보유재고에서 차감
-		- 재고가 부족하면 backlogging 또는 lost sales로 처리
+> 수요는 Poisson process를 따름
+$$
+D_t \sim Poisson(\lambda)
+$$
+- λ : 수요 도착률
+- 수요가 발생하면 보유재고에서 차감
+- 재고가 부족하면 backlogging 또는 lost sales로 처리
 - **Lead Time**
-	>
-		🌟 이 논문에서 리드타임은 고정값이 아님
-		- Normal source:
-			- server 1 처리시간 + server 2 처리시간
-			[image omitted: temporary Notion asset]
-		- Emergency source:
-			- server 2 처리시간만 필요
-				각 server의 processing time은 Erlang distribution을 따름
-		- <span color="gray_bg">Erlang :  여러 개의 exp 처리 단계를 모두 통과해야 끝나는 시간</span>
-			- 예를 들어 Server 1 작업이 한 번에 끝나는 게 아니라,
-				```plain text
+>
+🌟 이 논문에서 리드타임은 고정값이 아님
+- Normal source:
+- server 1 처리시간 + server 2 처리시간
+[image omitted: temporary Notion asset]
+- Emergency source:
+- server 2 처리시간만 필요
+각 server의 processing time은 Erlang distribution을 따름
+- Erlang :  여러 개의 exp 처리 단계를 모두 통과해야 끝나는 시간
+- 예를 들어 Server 1 작업이 한 번에 끝나는 게 아니라,
+```plain text
 1단계 → 2단계 → 3단계 → ... → r단계를 거쳐야 할때,
-				```
-				- 각 단계의 처리시간이 Exp 분포를 따른다면,
-				- 그 전체 처리시간은 Erlang 분포
-			<table header-row="true">
-			<colgroup>
-			<col>
-			<col width="213.1979217529297">
-			<col width="219.3541717529297">
-			</colgroup>
+```
+- 각 단계의 처리시간이 Exp 분포를 따른다면,
+- 그 전체 처리시간은 Erlang 분포
+<table header-row="true">
+
 <tr>
 <td>구분</td>
 <td>Exp 분포</td>
@@ -737,18 +710,15 @@ $$
 <td>처리 하나가 랜덤하게 끝남</td>
 <td>여러 공정 단계를 지나야 끝남</td>
 </tr>
-			</table>
-		$$
-		T_1 \sim Erlang(r, \mu_1)
-		$$
-		$$
-		T_2 \sim Erlang(k, \mu_2)
-		$$
-		<table header-row="true">
-		<colgroup>
-		<col width="200">
-		<col width="393.4375">
-		</colgroup>
+</table>
+$$
+T_1 \sim Erlang(r, \mu_1)
+$$
+$$
+T_2 \sim Erlang(k, \mu_2)
+$$
+<table header-row="true">
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -769,47 +739,47 @@ $$
 <td>mu_2</td>
 <td>server 2의 처리율</td>
 </tr>
-		</table>
-		- normal lead time = server 1에서 걸리는 시간 + server 2에서 걸리는 시간
-		- emergency lead time = server 2에서 걸리는 시간
+</table>
+- normal lead time = server 1에서 걸리는 시간 + server 2에서 걸리는 시간
+- emergency lead time = server 2에서 걸리는 시간
 - **Transition**
-	> 논문에서는 상태 전이가 사건 중심으로 일어남
-		- 주요 사건
-			1. 수요 발생
-			2. server 1 처리 진행
-			3. server 2 처리 진행
-			4. server 2 처리 완료 후 입고
-					1. **수요 발생**
-			수요가 발생하면 순재고가 감소
-			$$
-			IN(t+1) = IN(t) - 1
-			$$
-			- 재고가 있으면 재고 감소
-			- 재고가 없으면 backlog 증가 또는 lost sales 발생
-					2. **server 1 처리 진행**
-			server 1에서 processing phase가 하나 완료되면 W1(t)가 증가
-			$$
-			W_1(t) \rightarrow W_1(t) + \frac{1}{r}
-			$$
-			- r개의 phase 중 하나가 완료되었다는 의미
-			- 마지막 phase가 끝나면 해당 주문은 server 2로 이동
-					3. **server 2 처리 진행**
-			server 2에서 processing phase가 하나 완료되면 W2(t)가 증가
-			$$
-			W_2(t) \rightarrow W_2(t) + \frac{1}{k}
-			$$
-			- k개의 phase 중 하나가 완료되었다는 의미
-			- 마지막 phase가 끝나면 재고로 입고됨
-						4. **server 2 처리 완료 후 입고**
-			server 2 처리가 모두 끝나면 재고가 1개 증가
-			$$
-			IN(t+1) = IN(t) + 1
-			$$
+> 논문에서는 상태 전이가 사건 중심으로 일어남
+- 주요 사건
+1. 수요 발생
+2. server 1 처리 진행
+3. server 2 처리 진행
+4. server 2 처리 완료 후 입고
+1. **수요 발생**
+수요가 발생하면 순재고가 감소
+$$
+IN(t+1) = IN(t) - 1
+$$
+- 재고가 있으면 재고 감소
+- 재고가 없으면 backlog 증가 또는 lost sales 발생
+2. **server 1 처리 진행**
+server 1에서 processing phase가 하나 완료되면 W1(t)가 증가
+$$
+W_1(t) \rightarrow W_1(t) + \frac{1}{r}
+$$
+- r개의 phase 중 하나가 완료되었다는 의미
+- 마지막 phase가 끝나면 해당 주문은 server 2로 이동
+3. **server 2 처리 진행**
+server 2에서 processing phase가 하나 완료되면 W2(t)가 증가
+$$
+W_2(t) \rightarrow W_2(t) + \frac{1}{k}
+$$
+- k개의 phase 중 하나가 완료되었다는 의미
+- 마지막 phase가 끝나면 재고로 입고됨
+4. **server 2 처리 완료 후 입고**
+server 2 처리가 모두 끝나면 재고가 1개 증가
+$$
+IN(t+1) = IN(t) + 1
+$$
 - **Cost**
-	> 논문에서는 주문 비용, 재고 보유 비용, backlog 또는 shortage 비용을 고려
-		- **기본 비용식**
-			$$
-			c(X(t),Y(t),Z(t))
+> 논문에서는 주문 비용, 재고 보유 비용, backlog 또는 shortage 비용을 고려
+- **기본 비용식**
+$$
+c(X(t),Y(t),Z(t))
 =
 h\lfloor X(t)^+ \rfloor
 +
@@ -818,12 +788,9 @@ b\lceil X(t)^- \rceil
 h_2\lceil Y(t)\rceil
 +
 h_1\lceil Z(t)\rceil
-			$$
-			<table header-row="true">
-			<colgroup>
-			<col width="149">
-			<col width="398.1145935058594">
-			</colgroup>
+$$
+<table header-row="true">
+
 <tr>
 <td>항목</td>
 <td>의미</td>
@@ -844,21 +811,18 @@ h_1\lceil Z(t)\rceil
 <td>h2[Z(t)]</td>
 <td>server 1에 있는 주문의 holding cost</td>
 </tr>
-			</table>
+</table>
 - **Objective**
-	> 논문의 목표는 무한 기간에서 기대 할인 비용을 최소화하는 것
-		$$
-		\min_{\pi} E_{\pi}
+> 논문의 목표는 무한 기간에서 기대 할인 비용을 최소화하는 것
+$$
+\min_{\pi} E_{\pi}
 \left[
 \sum_{t=0}^{\infty}
 \alpha^t Cost_t
 \right]
-		$$
-		<table header-row="true">
-		<colgroup>
-		<col width="162">
-		<col width="423">
-		</colgroup>
+$$
+<table header-row="true">
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -875,9 +839,9 @@ h_1\lceil Z(t)\rceil
 <td>Cost_t</td>
 <td>시점 (t)의 비용</td>
 </tr>
-		</table>
-		- 현재부터 먼 미래까지 발생하는 비용을 할인해서 모두 더한 뒤,
-		- 그 기대값이 가장 작아지는 주문 정책을 찾는 것
+</table>
+- 현재부터 먼 미래까지 발생하는 비용을 할인해서 모두 더한 뒤,
+- 그 기대값이 가장 작아지는 주문 정책을 찾는 것
 ---
 ## MDP 환경 정의
 ---
@@ -885,8 +849,8 @@ h_1\lceil Z(t)\rceil
 - 기간은 T일
 - 매 기간 수요 dt가 확률적으로 발생
 - 공급처는 2개
-	- 일반 공급처 R: 저렴하지만 리드타임이 김
-	- 긴급 공급처 E: 비싸지만 리드타임이 짧음
+- 일반 공급처 R: 저렴하지만 리드타임이 김
+- 긴급 공급처 E: 비싸지만 리드타임이 짧음
 - 주문량은 바로 재고에 들어오지 않고, 리드타임 이후 입고
 - 실제 리드타임은 고정값이 아니라 지연될 수 있음
 - 기존 toy model과 맞추기 위해 backlog가 아니라 **결품/lost sales** 구조 사용
@@ -895,10 +859,7 @@ $$
 s_t = (x_t, t, P_t^R, P_t^E)
 $$
 <table header-row="true">
-<colgroup>
-<col width="166">
-<col width="517">
-</colgroup>
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -921,7 +882,7 @@ $$
 </tr>
 </table>
 - Pt\^R, Pt\^E는 **pipeline inventory**
-	- pipeline inventory :  이미 주문은 했지만, 아직 창고 재고로 도착하지 않은 물량
+- pipeline inventory :  이미 주문은 했지만, 아직 창고 재고로 도착하지 않은 물량
 - 현재 재고 + 아직 도착하지 않은 일반 주문 + 아직 도착하지 않은 긴급 주문
 - 이 정보를 state에 넣는 이유 → 이미 주문한 물량이 미래에 도착해서 재고에 영향을 주기 때문
 #### Pipeline 표현
@@ -933,19 +894,16 @@ $$
 P_t^E = (p_{t,1}^E, p_{t,2}^E, \dots, p_{t,L_{\max}^E}^E)
 $$
 - 의미 :
-	- p_(t,1)\^R : 일반 공급처 주문 중 1기간 뒤 도착 예정 물량
-	- p_(t,2)\^R : 일반 공급처 주문 중 2기간 뒤 도착 예정 물량
-	- p_(t,1)\^E : 긴급 공급처 주문 중 1기간 뒤 도착 예정 물량
+- p_(t,1)\^R : 일반 공급처 주문 중 1기간 뒤 도착 예정 물량
+- p_(t,2)\^R : 일반 공급처 주문 중 2기간 뒤 도착 예정 물량
+- p_(t,1)\^E : 긴급 공급처 주문 중 1기간 뒤 도착 예정 물량
 - 즉, pipeline은 “이미 주문했는데 아직 안 온 물량”을 도착 예정 시점별로 저장하는 구조
 #### Action
 $$
 a_t = (q_t^R, q_t^E)
 $$
 <table header-row="true">
-<colgroup>
-<col width="156">
-<col width="236.27084350585938">
-</colgroup>
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -960,26 +918,26 @@ $$
 </tr>
 </table>
 - **주문량 제약**
-	- 기존 toy model의 주문 상한 M을 유지하면 다음과 같이 표현 가능
-	$$
-	q_t^R + q_t^E \le M
-	$$
-	$$
-	q_t^R, q_t^E \in \{0,1,\dots,M\}
-	$$
-	- 즉, 총 주문량은 최대 M개까지 가능하고, 그 안에서 일반 주문과 긴급 주문을 나누는 구조
+- 기존 toy model의 주문 상한 M을 유지하면 다음과 같이 표현 가능
+$$
+q_t^R + q_t^E \le M
+$$
+$$
+q_t^R, q_t^E \in \{0,1,\dots,M\}
+$$
+- 즉, 총 주문량은 최대 M개까지 가능하고, 그 안에서 일반 주문과 긴급 주문을 나누는 구조
 #### Demand
 $$
 d_t \sim P_D
 $$
-1. <span color="yellow_bg">Uniform</span>
-	$$
-	d_t \sim Uniform(0,\lambda)
-	$$
-2. <span color="yellow_bg">Poisson</span>
-	$$
-	d_t \sim Poisson(\lambda)
-	$$
+1. Uniform
+$$
+d_t \sim Uniform(0,\lambda)
+$$
+2. Poisson
+$$
+d_t \sim Poisson(\lambda)
+$$
 #### Lead Time 불확실성
 $$
 L_t^R = \bar{L}^R + \Delta_t^R
@@ -988,10 +946,7 @@ $$
 L_t^E = \bar{L}^E + \Delta_t^E
 $$
 <table header-row="true">
-<colgroup>
-<col width="176">
-<col width="489.0729217529297">
-</colgroup>
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -1014,48 +969,45 @@ $$
 </tr>
 </table>
 - 관계
-	$$
-	\bar{L}^R > \bar{L}^E
-	$$
-	- 일반 공급처는 싸지만 느림
-	- 긴급 공급처는 비싸지만 빠름
-	- 하지만 둘 다 지연될 수 있음
+$$
+\bar{L}^R > \bar{L}^E
+$$
+- 일반 공급처는 싸지만 느림
+- 긴급 공급처는 비싸지만 빠름
+- 하지만 둘 다 지연될 수 있음
 #### Arrival
 시점 t에 실제로 도착하는 물량은 과거에 주문한 것 중 리드타임이 끝난 물량
 - **일반 공급처 입고량**
-	$$
-	A_t^R = \sum_{\tau=0}^{t-1} q_{\tau}^R \cdot \mathbf{1}_{\{\tau + L_{\tau}^R = t\}}
-	$$
+$$
+A_t^R = \sum_{\tau=0}^{t-1} q_{\tau}^R \cdot \mathbf{1}_{\{\tau + L_{\tau}^R = t\}}
+$$
 - **긴급 공급처 입고량**
-	$$
-	A_t^E = \sum_{\tau=0}^{t-1} q_{\tau}^E \cdot \mathbf{1}_{\{\tau + L_{\tau}^E = t\}}
-	$$
+$$
+A_t^E = \sum_{\tau=0}^{t-1} q_{\tau}^E \cdot \mathbf{1}_{\{\tau + L_{\tau}^E = t\}}
+$$
 - **전체 입고량**
-	$$
-	A_t = A_t^R + A_t^E
-	$$
-	- 과거에 주문한 물량 중 오늘 도착할 차례가 된 것만 현재 재고에 더해짐
-	- τ는 **과거의 주문 시점**
-		- 즉 과거 시점 τ + Lead time = t (오늘) → 1 (오늘 입고됨)
+$$
+A_t = A_t^R + A_t^E
+$$
+- 과거에 주문한 물량 중 오늘 도착할 차례가 된 것만 현재 재고에 더해짐
+- τ는 **과거의 주문 시점**
+- 즉 과거 시점 τ + Lead time = t (오늘) → 1 (오늘 입고됨)
 #### Transition
 - 입고 후 사용 가능한 재고
-	$$
-		I_t = x_t + A_t
-	$$
+$$
+I_t = x_t + A_t
+$$
 - 수요가 발생한 뒤 다음 재고
-	$$
-	x_{t+1} = \min(C, \max(I_t - d_t, 0))
-	$$
+$$
+x_{t+1} = \min(C, \max(I_t - d_t, 0))
+$$
 - 결품량
-	$$
-	z_t = \max(d_t - I_t, 0)
-	$$
-	- 여기서는 backlog가 아니라 lost sales 구조라서, 결품된 수요는 다음 기간으로 넘어가지 않고 비용으로만 반영 
+$$
+z_t = \max(d_t - I_t, 0)
+$$
+- 여기서는 backlog가 아니라 lost sales 구조라서, 결품된 수요는 다음 기간으로 넘어가지 않고 비용으로만 반영 
 <table header-row="true">
-<colgroup>
-<col width="203">
-<col width="478.6354217529297">
-</colgroup>
+
 <tr>
 <td>기호</td>
 <td>의미</td>
@@ -1085,10 +1037,7 @@ K_R y_t^R + K_E y_t^E
 + h x_{t+1} + p z_t
 $$
 <table header-row="true">
-<colgroup>
-<col width="171">
-<col width="512.4791717529297">
-</colgroup>
+
 <tr>
 <td>항목</td>
 <td>의미</td>
@@ -1119,28 +1068,28 @@ $$
 </tr>
 </table>
 - 일반적으로 긴급 공급처가 더 비싸므로 
-	$$
-	c_E > c_R
-	$$
+$$
+c_E > c_R
+$$
 #### 주문 여부 변수
 주문 고정비를 계산하려면 주문 여부 변수가 필요
 → 주문 고정비 : 주문을 한 번 넣을 때마다 무조건 발생하는 비용
 - **일반 공급처 주문 여부**
-	$$
-	y_t^R =
+$$
+y_t^R =
 \begin{cases}
 1, & q_t^R > 0 \\
 0, & q_t^R = 0
 \end{cases}
-	$$
+$$
 - **긴급 공급처 주문 여부**
-	$$
-	y_t^E =
+$$
+y_t^E =
 \begin{cases}
 1, & q_t^E > 0 \\
 0, & q_t^E = 0
 \end{cases}
-	$$
+$$
 #### Reward
 강화학습에서는 비용을 최소화하고 싶지만, 알고리즘은 reward를 최대화
 $$
@@ -1149,17 +1098,17 @@ $$
 - 즉, 비용이 작을수록 reward가 커짐
 #### Objective
 - **비용 최소화 관점**
-	$$
-	\min_{\pi} E_{\pi}\left[\sum_{t=0}^{T-1} Cost_t\right]
-	$$
+$$
+\min_{\pi} E_{\pi}\left[\sum_{t=0}^{T-1} Cost_t\right]
+$$
 - **강화학습 reward 관점**
-	$$
-	\max_{\pi} E_{\pi}
+$$
+\max_{\pi} E_{\pi}
 \left[
 \sum_{t=0}^{T-1} r_t
 \right]
-	$$
-	- 총 비용 최소화 = 누적 reward 최대화
+$$
+- 총 비용 최소화 = 누적 reward 최대화
 ---
 
 ---
@@ -1167,18 +1116,18 @@ $$
 # 강화학습 결과 정리
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 강화학습 모델 → **DQN 계열 모델**
 ---
 - **DQN 계열 모델 선택 이유 :**
-	- 우리 문제의 행동이 연속값이 아니라, 
-	- 가능한 주문량 조합 중 하나를 선택하는 **이산 행동 문제**로 구성될 수 있기 때문
-		- 일반 공급처 주문량 qR과 긴급 공급처 주문량 qE를 동시에 결정해야 하므로, 두 주문량의 조합을 하나의 action으로 묶는 <span color="blue">**Joint action 방식**</span>을 사용
-	- 구현에서는 다음과 같이 action space를 구성 :
-	- q_R=0∼50
-	- q_E=0∼20
-	- 전체 action 수: 51×21=1071
+- 우리 문제의 행동이 연속값이 아니라, 
+- 가능한 주문량 조합 중 하나를 선택하는 **이산 행동 문제**로 구성될 수 있기 때문
+- 일반 공급처 주문량 qR과 긴급 공급처 주문량 qE를 동시에 결정해야 하므로, 두 주문량의 조합을 하나의 action으로 묶는 **Joint action 방식**을 사용
+- 구현에서는 다음과 같이 action space를 구성 :
+- q_R=0∼50
+- q_E=0∼20
+- 전체 action 수: 51×21=1071
 - 즉, action index 하나가 특정 주문 조합 (qR,qE) 하나를 의미
 ---
 ## Double DQN
@@ -1186,12 +1135,12 @@ $$
 #### 모델 설명 
 - Double DQN은 기본 DQN의 단점을 보완한 모델
 - **기본 DQN **
-	- DQN은 현재 상태에서 각 action의 가치를 나타내는 Q(s,a)를 신경망으로 근사함
-	- 학습된 Q-value를 기준으로 가장 좋은 action을 선택함
-	- 하지만 특정 action의 가치를 실제보다 크게 추정하는 **overestimation bias** 문제가 발생할 수 있음
+- DQN은 현재 상태에서 각 action의 가치를 나타내는 Q(s,a)를 신경망으로 근사함
+- 학습된 Q-value를 기준으로 가장 좋은 action을 선택함
+- 하지만 특정 action의 가치를 실제보다 크게 추정하는 **overestimation bias** 문제가 발생할 수 있음
 - **Double DQN**은 이를 줄이기 위해 action 선택과 action 평가를 분리
-	- <span color="red">Online network</span> : 다음 상태에서 어떤 action이 좋은지 선택
-	- <span color="red">Target network</span> : 선택된 action의 Q-value를 평가
+- Online network : 다음 상태에서 어떤 action이 좋은지 선택
+- Target network : 선택된 action의 Q-value를 평가
 - 이를 통해 Q-value가 과대평가되는 문제를 완화
 #### 사용 이유
 - 우리 문제는 수요와 리드타임이 확률적으로 변동하기 때문에, 같은 action을 선택해도 매 episode마다 비용이 달라질 수 있음
@@ -1201,36 +1150,36 @@ $$
 - 따라서 Double DQN을 첫 번째 강화학습 모델로 사용
 #### 1. Learning Curve
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 학습 episode가 증가함에 따라 Double DQN의 비용이 어떻게 변화하는지 보여주는 그래프
-	- Moving average가 전체적으로 감소하므로, Double DQN이 비용을 줄이는 방향으로 주문정책을 학습했음을 확인할 수 있음
-	- 학습 중간에 비용 spike가 발생하는 이유는 수요와 리드타임이 확률적으로 변동하기 때문
-	- 또한 학습 과정에서는 epsilon-greedy 탐색으로 랜덤 행동이 포함되기 때문에, 학습 비용은 평가 비용보다 크게 흔들릴 수 있음
-</callout>
+
+- 이 그래프는 학습 episode가 증가함에 따라 Double DQN의 비용이 어떻게 변화하는지 보여주는 그래프
+- Moving average가 전체적으로 감소하므로, Double DQN이 비용을 줄이는 방향으로 주문정책을 학습했음을 확인할 수 있음
+- 학습 중간에 비용 spike가 발생하는 이유는 수요와 리드타임이 확률적으로 변동하기 때문
+- 또한 학습 과정에서는 epsilon-greedy 탐색으로 랜덤 행동이 포함되기 때문에, 학습 비용은 평가 비용보다 크게 흔들릴 수 있음
+
 #### 2. Trajectory
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 특정 episode에서 Double DQN이 기간별로 어떤 주문을 하고, 그 결과 재고와 비용이 어떻게 변했는지 보여주는 그래프
-	- Double DQN은 일반 주문을 기본적으로 사용하고, 부족 위험이 있는 구간에서 긴급 주문을 함께 사용하는 패턴을 보임
-	- 초반에는 초기 재고와 pipeline이 비어 있어 shortage와 비용이 크게 발생함
-	- 이후에는 재고가 일정 수준으로 회복되면서 기간별 비용이 비교적 안정되는 흐름을 보임
-</callout>
+
+- 이 그래프는 특정 episode에서 Double DQN이 기간별로 어떤 주문을 하고, 그 결과 재고와 비용이 어떻게 변했는지 보여주는 그래프
+- Double DQN은 일반 주문을 기본적으로 사용하고, 부족 위험이 있는 구간에서 긴급 주문을 함께 사용하는 패턴을 보임
+- 초반에는 초기 재고와 pipeline이 비어 있어 shortage와 비용이 크게 발생함
+- 이후에는 재고가 일정 수준으로 회복되면서 기간별 비용이 비교적 안정되는 흐름을 보임
+
 #### 3. Average Cost
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 각 정책의 총비용이 어떤 비용 항목에서 발생했는지 보여주는 그래프
-	- Double DQN은 TBS보다 낮은 총비용을 보였지만, Single-Index와 Dual-Index보다는 높은 비용을 기록
-	- Double DQN은 일반 주문과 긴급 주문을 함께 사용하는 전략을 학습했지만, 보유비용과 백오더 비용을 완전히 균형 있게 줄이지는 못함
-	- 기존 휴리스틱은 재고관리 구조를 반영한 정책이기 때문에 비용 항목 간 균형이 더 안정적으로 나타난 것으로 해석할 수 있음
-</callout>
+
+- 이 그래프는 각 정책의 총비용이 어떤 비용 항목에서 발생했는지 보여주는 그래프
+- Double DQN은 TBS보다 낮은 총비용을 보였지만, Single-Index와 Dual-Index보다는 높은 비용을 기록
+- Double DQN은 일반 주문과 긴급 주문을 함께 사용하는 전략을 학습했지만, 보유비용과 백오더 비용을 완전히 균형 있게 줄이지는 못함
+- 기존 휴리스틱은 재고관리 구조를 반영한 정책이기 때문에 비용 항목 간 균형이 더 안정적으로 나타난 것으로 해석할 수 있음
+
 #### 4. Mean Cost
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 정책별 평균 총비용을 직접 비교하여 어떤 정책이 더 효율적인지 보여주는 그래프
-	- Double DQN은 TBS보다 좋은 성능을 보였지만, Single-Index와 Dual-Index보다는 약간 높은 비용을 기록
-	- Double DQN은 사전에 정해진 주문 규칙 없이 경험을 통해 정책을 학습했기 때문에 기존 휴리스틱에 근접한 결과를 얻은 것으로 볼 수 있음
-	- 그러나 Single-Index와 Dual-Index는 grid search로 최적 파라미터를 찾은 구조적 정책이므로, 현재 Double DQN보다 더 안정적인 성능을 보인 것으로 해석됨
-</callout>
+
+- 이 그래프는 정책별 평균 총비용을 직접 비교하여 어떤 정책이 더 효율적인지 보여주는 그래프
+- Double DQN은 TBS보다 좋은 성능을 보였지만, Single-Index와 Dual-Index보다는 약간 높은 비용을 기록
+- Double DQN은 사전에 정해진 주문 규칙 없이 경험을 통해 정책을 학습했기 때문에 기존 휴리스틱에 근접한 결과를 얻은 것으로 볼 수 있음
+- 그러나 Single-Index와 Dual-Index는 grid search로 최적 파라미터를 찾은 구조적 정책이므로, 현재 Double DQN보다 더 안정적인 성능을 보인 것으로 해석됨
+
 ---
 ## Dueling Double DQN
 ---
@@ -1238,49 +1187,49 @@ $$
 - **Dueling Double DQN** :  Double DQN에 **Dueling Network 구조**를 추가한 모델
 - 일반 DQN은 각 action의 Q-value를 바로 예측
 - 반면 Dueling 구조는 Q-value를 두 부분으로 나누어 학습
-	- V(s) : 현재 상태 자체의 가치
-	- A(s,a) : 해당 상태에서 특정 action이 평균보다 얼마나 좋은지
+- V(s) : 현재 상태 자체의 가치
+- A(s,a) : 해당 상태에서 특정 action이 평균보다 얼마나 좋은지
 - 즉, 상태의 좋고 나쁨과 action의 상대적 효과를 분리해서 학습
 #### 사용 이유
 - 우리 문제에서는 어떤 상태 자체가 이미 좋은 상태이거나 나쁜 상태일 수 있음
-	- 예 :  재고가 충분하고 도착 예정 물량이 많으면 비교적 좋은 상태
-	- 예 :  재고가 부족하고 pipeline도 부족하면 위험한 상태
+- 예 :  재고가 충분하고 도착 예정 물량이 많으면 비교적 좋은 상태
+- 예 :  재고가 부족하고 pipeline도 부족하면 위험한 상태
 - 이런 경우 모든 action의 가치를 처음부터 따로 학습하는 것보다, 상태 자체의 가치를 먼저 구분하는 것이 효율적
 - 특히 우리 문제는 action 수가 1071개로 많기 때문에, 모든 action 조합의 Q-value를 안정적으로 학습하기 어려움
 - Dueling 구조는 상태 가치와 action 효과를 분리하므로, action space가 큰 문제에서 더 효율적인 학습을 기대할 수 있음
 - 따라서 Double DQN보다 더 안정적이고 세밀한 주문정책을 학습할 가능성이 있어 사용
 #### 1. Learning Curve
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 학습이 진행되면서 Dueling Double DQN의 비용이 어떻게 변하는지 보여주는 그래프
-	- Moving average가 빠르게 감소한 뒤 후반부에는 안정적으로 유지되는 흐름을 보임
-	- 이는 Dueling Double DQN이 학습 초반에는 탐색을 많이 하다가, 점차 비용이 낮은 주문정책을 학습했음을 의미
-	- 후반부에도 일부 spike가 존재하지만, 전체적으로는 Double DQN보다 더 안정적인 학습 흐름을 보임
-</callout>
+
+- 이 그래프는 학습이 진행되면서 Dueling Double DQN의 비용이 어떻게 변하는지 보여주는 그래프
+- Moving average가 빠르게 감소한 뒤 후반부에는 안정적으로 유지되는 흐름을 보임
+- 이는 Dueling Double DQN이 학습 초반에는 탐색을 많이 하다가, 점차 비용이 낮은 주문정책을 학습했음을 의미
+- 후반부에도 일부 spike가 존재하지만, 전체적으로는 Double DQN보다 더 안정적인 학습 흐름을 보임
+
 #### 2. Trajectory
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 특정 episode에서 Dueling Double DQN이 기간별로 어떤 주문을 하고, 재고와 비용이 어떻게 변했는지 보여주는 그래프
-	- Dueling Double DQN은 일반 주문을 기본적으로 사용하고, 필요한 시점에 긴급 주문을 보조적으로 사용하는 패턴을 보임
-	- 초반에는 초기 재고와 pipeline이 비어 있어 shortage가 크게 발생하지만, 이후에는 재고가 일정 범위에서 회복
-	- 전체 episode 비용이 약 25,159로 나타나며, 학습된 정책이 수요 변동에 대응하는 주문 패턴을 형성했음을 보여줌
-</callout>
+
+- 이 그래프는 특정 episode에서 Dueling Double DQN이 기간별로 어떤 주문을 하고, 재고와 비용이 어떻게 변했는지 보여주는 그래프
+- Dueling Double DQN은 일반 주문을 기본적으로 사용하고, 필요한 시점에 긴급 주문을 보조적으로 사용하는 패턴을 보임
+- 초반에는 초기 재고와 pipeline이 비어 있어 shortage가 크게 발생하지만, 이후에는 재고가 일정 범위에서 회복
+- 전체 episode 비용이 약 25,159로 나타나며, 학습된 정책이 수요 변동에 대응하는 주문 패턴을 형성했음을 보여줌
+
 #### 3. Average Cost
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 각 정책의 평균 비용이 주문비용, 보유비용, 백오더 비용 중 어디에서 발생했는지 보여주는 그래프
-	- Dueling Double DQN은 MIP Lower Bound를 제외하면 가장 낮은 총비용을 기록
-	- Dueling Double DQN은 일반 주문과 긴급 주문을 함께 사용하면서도, 전체 비용을 기존 휴리스틱보다 낮게 유지
-	- 이는 상태 가치와 행동 이점을 분리해 학습한 구조가 주문 조합 선택에 효과적으로 작동한 결과로 볼 수 있음
-</callout>
+
+- 이 그래프는 각 정책의 평균 비용이 주문비용, 보유비용, 백오더 비용 중 어디에서 발생했는지 보여주는 그래프
+- Dueling Double DQN은 MIP Lower Bound를 제외하면 가장 낮은 총비용을 기록
+- Dueling Double DQN은 일반 주문과 긴급 주문을 함께 사용하면서도, 전체 비용을 기존 휴리스틱보다 낮게 유지
+- 이는 상태 가치와 행동 이점을 분리해 학습한 구조가 주문 조합 선택에 효과적으로 작동한 결과로 볼 수 있음
+
 #### 4. Mean Cost
 [image omitted: temporary Notion asset]
-<callout color="gray_bg">
-	- 이 그래프는 정책별 평균 총비용을 비교하여 어떤 정책이 가장 효율적인지 보여주는 그래프
-	- Dueling Double DQN은 평균 비용 약 23,521로, Single-Index, Dual-Index, TBS보다 낮은 비용을 기록
-	- 기존 휴리스틱은 고정된 정책 구조를 사용하지만, Dueling Double DQN은 상태에 따라 주문 조합을 유연하게 선택
-	- MIP Lower Bound는 미래 정보를 알고 계산한 이상적 기준이므로, 실제 정책인 Dueling Double DQN보다 낮게 나오는 것이 정상
-</callout>
+
+- 이 그래프는 정책별 평균 총비용을 비교하여 어떤 정책이 가장 효율적인지 보여주는 그래프
+- Dueling Double DQN은 평균 비용 약 23,521로, Single-Index, Dual-Index, TBS보다 낮은 비용을 기록
+- 기존 휴리스틱은 고정된 정책 구조를 사용하지만, Dueling Double DQN은 상태에 따라 주문 조합을 유연하게 선택
+- MIP Lower Bound는 미래 정보를 알고 계산한 이상적 기준이므로, 실제 정책인 Dueling Double DQN보다 낮게 나오는 것이 정상
+
 ---
 
 ---
@@ -1288,7 +1237,7 @@ $$
 # 모델 정리
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## Double DQN 구조
 ---
@@ -1298,10 +1247,10 @@ $$
 - **Linear(256 → 256) → ReLU**
 - **Output → Linear(256 → 1,071) [Q-value]**
 - Input 차원: 13
-	- 현재 재고 + 일반 공급처 pipeline + 긴급 공급처 pipeline
+- 현재 재고 + 일반 공급처 pipeline + 긴급 공급처 pipeline
 - Output 차원: 1,071
-	- q_R = 0\~50,  q_E =0\~2
-	- 총 51 x 21 = 1,071개의 joint action
+- q_R = 0\~50,  q_E =0\~2
+- 총 51 x 21 = 1,071개의 joint action
 #### **하이퍼파라미터**
 - Learning rate: **1e-3 (Adam)**
 - 할인율: **0.99**
@@ -1317,14 +1266,14 @@ $$
 #### **학습 방식**
 - 1개의 환경에서 episode 단위로 경험을 수집함
 - epsilon-greedy 방식으로 action을 선택함
-	- 초반에는 랜덤 action을 많이 선택하여 탐색함
-	- 학습이 진행될수록 Q-value가 높은 action을 선택함
+- 초반에는 랜덤 action을 많이 선택하여 탐색함
+- 학습이 진행될수록 Q-value가 높은 action을 선택함
 - Replay buffer에 transition을 저장함
-	- (state, action, reward, next\\ state, done)
+- (state, action, reward, next\\ state, done)
 - Buffer에서 mini-batch를 샘플링하여 Q-network를 업데이트함
 - Double DQN 방식으로 action 선택과 평가를 분리함
-	- Online network: 다음 상태에서 action 선택
-	- Target network: 선택된 action의 Q-value 평가
+- Online network: 다음 상태에서 action 선택
+- Target network: 선택된 action의 Q-value 평가
 - Loss는 Smooth L1 Loss(Huber loss)를 사용함
 - Reward는 비용 최소화를 위해 -cost / 1000으로 사용함
 ---
@@ -1332,19 +1281,19 @@ $$
 ---
 #### **네트워크 구조 (Dueling Q-Network)**
 - **Shared Feature Network**
-	- **Input → Linear(13 → 256) → ReLU**
-	- **Linear(256 → 256) → ReLU**
+- **Input → Linear(13 → 256) → ReLU**
+- **Linear(256 → 256) → ReLU**
 - **Value Stream**
-	- **Linear(256 → 256) → ReLU**
-	- **Linear(256 → 1) [V(s)]**
+- **Linear(256 → 256) → ReLU**
+- **Linear(256 → 1) [V(s)]**
 - **Advantage Stream**
-	- **Linear(256 → 256) → ReLU**
-	- **Linear(256 → 1,071) [A(s,a)]**
+- **Linear(256 → 256) → ReLU**
+- **Linear(256 → 1,071) [A(s,a)]**
 - **Q-value 계산**
-	- Q(s,a) = V(s) + A(s,a) - mean(A(s,a))
-	- Input 차원: 13
-	- Output 차원: 1,071
-	- 상태 자체의 가치와 action별 이점을 나누어 학습함
+- Q(s,a) = V(s) + A(s,a) - mean(A(s,a))
+- Input 차원: 13
+- Output 차원: 1,071
+- 상태 자체의 가치와 action별 이점을 나누어 학습함
 #### **하이퍼파라미터**
 - Learning rate: **1e-3 (Adam)**
 - 할인율: **0.99**
@@ -1372,7 +1321,7 @@ $$
 # 01] Course introduction_organized
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 <pdf src="file://%7B%22source%22%3A%22attachment%3A6550db99-aa07-452b-84e4-3a717f5c442b%3A01Course_introduction_organized.pdf%22%2C%22permissionRecord%22%3A%7B%22table%22%3A%22block%22%2C%22id%22%3A%2237e20172-a832-806d-a4a4-dc2c134096eb%22%2C%22spaceId%22%3A%229fcf7087-7108-4498-a15f-963affc7fe7d%22%7D%7D"></pdf>
 ## 1. 꼭 알아야 할 개념 구분
@@ -1401,9 +1350,9 @@ $$
 </table>
 시험 포인트:
 > 강화학습은 labeled data를 이용해 정답을 맞히는 방식이다.
-	→ **False**
+→ **False**
 > 강화학습은 state, action, reward, next state 경험을 이용한다.
-	→ **True**
+→ **True**
 ---
 ## 2. 강화학습의 핵심 아이디어
 강화학습은 **불확실한 환경에서 경험을 통해 좋은 의사결정을 배우는 방법**이야.
@@ -1450,13 +1399,10 @@ $$
 **Policy는 상태를 보고 어떤 행동을 할지 정하는 규칙**이야.
 예시:
 > 재고가 적으면 주문을 많이 한다.
-	재고가 많으면 주문을 적게 한다.
+재고가 많으면 주문을 적게 한다.
 정책은 두 종류가 가능해.
 <table header-row="true">
-<colgroup>
-<col width="210.421875">
-<col>
-</colgroup>
+
 <tr>
 <td>구분</td>
 <td>의미</td>
@@ -1563,7 +1509,7 @@ value function이나 policy를 함수로 근사해.
 </table>
 핵심 문장:
 > Optimization은 보통 시스템 모델이 알려져 있다고 가정하고 최적해를 계산한다.
-	RL은 환경과 상호작용하면서 decision policy를 학습한다.
+RL은 환경과 상호작용하면서 decision policy를 학습한다.
 ---
 ## 6. True/False 대비 문장
 <table header-row="true">
@@ -1618,7 +1564,7 @@ value function이나 policy를 함수로 근사해.
 # 02] Linear programming
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 <pdf src="file://%7B%22source%22%3A%22attachment%3Ac1fd6223-5722-4b95-9a58-847293841bce%3A02Linear_programming.pdf%22%2C%22permissionRecord%22%3A%7B%22table%22%3A%22block%22%2C%22id%22%3A%2237e20172-a832-8081-81da-dfdd2008eedc%22%2C%22spaceId%22%3A%229fcf7087-7108-4498-a15f-963affc7fe7d%22%7D%7D"></pdf>
 ## 1. 개념 구분
@@ -1649,11 +1595,7 @@ value function이나 policy를 함수로 근사해.
 ---
 ## 2. LP / IP / MIP 구분
 <table header-row="true">
-<colgroup>
-<col>
-<col width="288">
-<col>
-</colgroup>
+
 <tr>
 <td>개념</td>
 <td>뜻</td>
@@ -1680,11 +1622,7 @@ value function이나 policy를 함수로 근사해.
 ---
 ## 3. Deterministic / Stochastic 구분
 <table header-row="true">
-<colgroup>
-<col>
-<col width="248.734375">
-<col>
-</colgroup>
+
 <tr>
 <td>개념</td>
 <td>뜻</td>
@@ -1811,10 +1749,7 @@ value function이나 policy를 함수로 근사해.
 ## 5. True/False 대비 문장
 이 정도 문장만 판단할 수 있으면 충분해.
 <table header-row="true">
-<colgroup>
-<col width="460">
-<col>
-</colgroup>
+
 <tr>
 <td>문장</td>
 <td>답</td>
@@ -1866,7 +1801,7 @@ value function이나 policy를 함수로 근사해.
 # 03] Mixed Integer Programming
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 이 자료는 한마디로:
@@ -1946,7 +1881,7 @@ LP relaxation은 정답을 바로 주기보다는 **기준값**, 즉 bound를 �
 > LP relaxation 해를 반올림한다고 해서 항상 정수계획 문제의 최적해가 되는 것은 아니다.
 시험 포인트:
 > “LP relaxation 해를 반올림하면 항상 최적해이다.”
-	→ **False**
+→ **False**
 ---
 # 4. Formulation이 중요한 이유
 같은 MIP 문제라도 여러 방식으로 모델링할 수 있어.
@@ -2216,7 +2151,7 @@ TSP formulation 두 가지야.
 TSP에서는 같은 경로라도 시작 도시를 다르게 쓰면 다른 해처럼 보일 수 있어.
 예를 들어:
 > 1 → 2 → 4 → 6 → 7 → 5 → 3 → 1
-	2 → 4 → 6 → 7 → 5 → 3 → 1 → 2
+2 → 4 → 6 → 7 → 5 → 3 → 1 → 2
 이 둘은 사실 같은 tour야.
 핵심:
 > TSP에는 symmetric solution issue가 있다.
@@ -2270,10 +2205,7 @@ TSP에서는 같은 경로라도 시작 도시를 다르게 쓰면 다른 해처
 ---
 # 7. True/False 대비
 <table header-row="true">
-<colgroup>
-<col width="909">
-<col>
-</colgroup>
+
 <tr>
 <td>문장</td>
 <td>답</td>
@@ -2354,7 +2286,7 @@ TSP에서는 같은 경로라도 시작 도시를 다르게 쓰면 다른 해처
 # RLPBL_solver
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 이 자료는 한마디로:
@@ -2394,7 +2326,7 @@ TSP에서는 같은 경로라도 시작 도시를 다르게 쓰면 다른 해처
 ## 2-2. P-median problem
 P-median은 이런 문제야.
 > 후보 시설 중에서 정확히 ppp개의 시설을 선택해서,
-	모든 고객의 수요 × 거리 비용을 최소화하는 문제
+모든 고객의 수요 × 거리 비용을 최소화하는 문제
 핵심 구조:
 <table header-row="true">
 <tr>
@@ -2434,7 +2366,7 @@ P-median은 이런 문제야.
 </table>
 쉽게 말하면:
 > UFLP는 “시설을 몇 개 열지”도 비용을 보고 결정하는 느낌이고,
-	P-median은 “시설 개수 p개가 정해져 있고, 어디에 열지”를 결정하는 문제야.
+P-median은 “시설 개수 p개가 정해져 있고, 어디에 열지”를 결정하는 문제야.
 ---
 # 3. P vs NP / NP-hard
 자료에서 중요한 부분이야.
@@ -2914,10 +2846,7 @@ Gurobi는 최적화 문제를 풀어주는 **MIP solver**야.
 ---
 # 15. True/False 대비
 <table header-row="true">
-<colgroup>
-<col width="846.9999847412109">
-<col>
-</colgroup>
+
 <tr>
 <td>문장</td>
 <td>답</td>
@@ -3005,7 +2934,7 @@ Gurobi는 최적화 문제를 풀어주는 **MIP solver**야.
 # RLPBL_Simopt
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 한마디로 말하면:
@@ -3013,9 +2942,9 @@ Gurobi는 최적화 문제를 풀어주는 **MIP solver**야.
 을 다루는 자료야.
 즉, 여기서는 “정확한 최적해를 수식으로 바로 구하기”보다는,
 > 정책 형태를 정함
-	여러 파라미터를 넣어봄
-	Monte Carlo simulation으로 평균 비용을 계산함
-	가장 비용이 낮은 파라미터를 선택함
+여러 파라미터를 넣어봄
+Monte Carlo simulation으로 평균 비용을 계산함
+가장 비용이 낮은 파라미터를 선택함
 이 흐름이 중요해.
 ---
 # 2. Stochastic Inventory Model
@@ -3277,7 +3206,7 @@ Single-period 예시:
 **재고가 부족해서 수요를 만족하지 못했을 때 발생하는 비용**이야.
 예:
 > 고객 수요가 50인데 재고가 30이면 20개 부족
-	이 부족분에 대해 stockout cost 발생
+이 부족분에 대해 stockout cost 발생
 시험용 문장:
 > **Stockout cost는 수요를 충족하지 못했을 때 발생하는 비용이다.**
 ---
@@ -3483,7 +3412,7 @@ quiz 형식이면 아래는 우선순위 낮아.
 하지만 아래는 알아야 해.
 - policy 종류
 - (r,Q)(r,Q)(r,Q), base-stock, (s,S) 의미
-	(s,S)(s,S)
+(s,S)(s,S)
 - simulation-based optimization
 - Monte Carlo simulation
 - Wait-and-See lower bound
@@ -3567,7 +3496,7 @@ quiz 형식이면 아래는 우선순위 낮아.
 # 06] Markov Decision Processes
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 한마디로 말하면:
@@ -3619,8 +3548,8 @@ MDP의 목표는:
 </table>
 흐름은 이렇게 돼.
 > Agent가 action을 선택한다.
-	Environment가 그 action에 반응한다.
-	Environment는 reward와 new state를 agent에게 준다.
+Environment가 그 action에 반응한다.
+Environment는 reward와 new state를 agent에게 준다.
 시험용 문장:
 > **Agent는 action을 선택하고, environment는 reward와 next state를 제공한다.**
 ---
@@ -3681,7 +3610,7 @@ p(s′,r∣s,a)p(s', r \| s, a)
 p(s′,r∣s,a)
 뜻:
 > 현재 상태 sss에서 행동 aaa를 했을 때,
-	다음 상태가 s′s's′가 되고 reward가 rrr일 확률
+다음 상태가 s′s's′가 되고 reward가 rrr일 확률
 시험용 문장:
 > **p(s′,r∣s,a)p(s', r\|s,a)p(s′,r∣s,a)는 MDP의 dynamics를 정의한다.**
 ---
@@ -3697,7 +3626,7 @@ p(s′,r∣s,a)
 > **Markov property는 다음 상태와 reward가 과거 전체가 아니라 직전 state와 action에만 의존한다는 성질이다.**
 예상 문제:
 > MDP에서는 다음 상태가 항상 전체 과거 history에 의존한다.
-	→ **False**
+→ **False**
 ---
 # 7. State-transition과 Reward
 자료에서는 p(s′,r∣s,a)p(s',r\|s,a)p(s′,r∣s,a)에서 여러 정보를 계산할 수 있다고 해.
@@ -3898,7 +3827,7 @@ Bellman equation은 이 자료에서 핵심 중 핵심이야.
 ## 의미
 Bellman equation은:
 > 현재 state의 value를
-	즉시 reward + 다음 state의 value로 표현하는 관계식
+즉시 reward + 다음 state의 value로 표현하는 관계식
 즉,
 > 현재 가치 = 지금 받을 reward + 미래 가치
 자료 표현으로는:
@@ -3999,7 +3928,7 @@ Bellman optimality equation은 최적 행동을 고르는 식이야.
 # 20. v∗v\^\*v∗와 q∗q\^\*q∗
 자료에서 중요한 내용:
 > v∗v\^\*v∗를 알면 optimal policy를 쉽게 구할 수 있다.
-	q∗q\^\*q∗를 알면 optimal action 선택이 더 쉬워진다.
+q∗q\^\*q∗를 알면 optimal action 선택이 더 쉬워진다.
 왜냐하면 q∗(s,a)q\^\*(s,a)q∗(s,a)는 각 action의 가치를 직접 알려주기 때문이야.
 시험용 문장:
 > **q∗q\^\*q∗를 알면 각 state에서 가장 큰 q∗(s,a)q\^\*(s,a)q∗(s,a)를 갖는 action을 선택하면 된다.**
@@ -4075,7 +4004,7 @@ quiz 형식이면 아래는 우선순위 낮아.
 - Return과 discounting
 - Policy
 - vπ(s)v_\\pi(s)vπ(s), qπ(s,a)
-	qπ(s,a)q_\\pi(s,a)
+qπ(s,a)q_\\pi(s,a)
 - Bellman equation 의미
 - Bellman optimality equation 의미
 - Optimal policy
@@ -4154,7 +4083,7 @@ quiz 형식이면 아래는 우선순위 낮아.
 # 07] Temporal Difference Learning
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 한마디로 말하면:
@@ -4175,7 +4104,7 @@ quiz 형식이면 아래는 우선순위 낮아.
 > 현재 추정값과 다음 상태를 보고 만든 새로운 추정값의 차이를 이용해 학습하는 방법
 자료의 핵심 표현:
 > TD can learn directly from raw experience.
-	TD updates estimates based on the Bellman equation.
+TD updates estimates based on the Bellman equation.
 즉, TD는 **MDP의 전체 transition probability를 몰라도**, 직접 경험한 샘플로 value를 업데이트해.
 ---
 # 3. DP와 RL 차이
@@ -4274,7 +4203,7 @@ quiz 형식이면 아래는 우선순위 낮아.
 </table>
 ϵ\\epsilonϵ-greedy policy는:
 > 대부분은 greedy action을 선택하고,
-	작은 확률 ϵ\\epsilonϵ로 다른 action도 선택하는 정책
+작은 확률 ϵ\\epsilonϵ로 다른 action도 선택하는 정책
 자료에서는 모든 action이 최소한 어느 정도 선택될 수 있도록 하는 **soft policy**로 설명돼.
 시험용 문장:
 > **ϵ\\epsilonϵ-greedy policy는 대부분 greedy action을 선택하지만, ϵ\\epsilonϵ 확률로 exploration을 수행한다.**
@@ -4325,7 +4254,7 @@ SARSA는 실제로 행동을 고르는 policy와
 업데이트에 사용하는 policy가 같아.
 즉:
 > 실제로 ϵ\\epsilonϵ-greedy로 행동을 선택하고,
-	업데이트도 그 ϵ\\epsilonϵ-greedy가 선택한 다음 행동을 기준으로 한다.
+업데이트도 그 ϵ\\epsilonϵ-greedy가 선택한 다음 행동을 기준으로 한다.
 그래서 on-policy야.
 시험용 문장:
 > **SARSA는 실제로 선택한 다음 action At+1A_\{t+1\}At+1을 사용하여 업데이트하므로 on-policy이다.**
@@ -4525,12 +4454,12 @@ Double Q-learning은:
 > Double learning 아이디어를 Q-learning에 적용한 방법
 핵심:
 - Q1Q_1Q1, Q2 두 개를 학습한다.
-	Q2Q_2
+Q2Q_2
 - 매번 둘 중 하나만 업데이트한다.
 - action 선택과 평가를 서로 다른 Q 함수로 나눈다.
 - behavior policy는 Q1과 Q2의 평균 등을 이용할 수 있다.
-	Q1Q_1
-	Q2Q_2
+Q1Q_1
+Q2Q_2
 시험용 문장:
 > **Double Q-learning은 두 개의 Q-value estimate를 사용하여 maximization bias를 줄인다.**
 ---
@@ -4547,7 +4476,7 @@ quiz 형식이면 아래는 낮은 우선순위야.
 - SARSA와 Q-learning 차이
 - ϵ\\epsilonϵ-greedy policy
 - α\\alphaα, γ
-	γ\\gamma
+γ\\gamma
 - Maximization bias
 - Double learning / Double Q-learning
 ---
@@ -4657,7 +4586,7 @@ p(s′,r∣s,a)p(s', r \\mid s, a)
 p(s′,r∣s,a)
 이건 뭐냐면:
 > 현재 상태 sss에서 행동 aaa를 했을 때,
-	다음 상태가 s′s's′가 되고 reward가 rrr이 나올 확률
+다음 상태가 s′s's′가 되고 reward가 rrr이 나올 확률
 예를 들어 재고가 10개이고 주문을 5개 했을 때,
 <table header-row="true">
 <tr>
@@ -4698,7 +4627,7 @@ DP는:
 이야.
 즉, 모든 상태와 행동에 대해:
 > 이 행동을 하면 어떤 다음 상태로 갈 확률이 얼마인지
-	어떤 reward가 나올 확률이 얼마인지
+어떤 reward가 나올 확률이 얼마인지
 를 알고 있다고 가정해.
 그래서 DP는 **모델을 알고 푸는 planning 방법**에 가까워.
 ---
@@ -4713,8 +4642,8 @@ RL은:
 이 자료에서는 DP를 자세히 배우는 게 아니라, **RL과 비교하기 위해 언급한 것**에 가까워.
 즉, 교수님이 말하고 싶은 건 이거야.
 > Bellman equation을 정확히 풀려면 DP 같은 방법이 있지만,
-	DP는 환경 모델을 알아야 한다.
-	그런데 현실에서는 모델을 모르는 경우가 많으니까 RL을 쓴다.
+DP는 환경 모델을 알아야 한다.
+그런데 현실에서는 모델을 모르는 경우가 많으니까 RL을 쓴다.
 그래서 네가 시험 대비로 알아야 할 정도는 이거야.
 <table header-row="true">
 <tr>
@@ -4755,8 +4684,8 @@ RL은 **경험으로 MDP를 푸는 학습 방법**이고.
 거의 맞아.
 흐름은 이렇게 보면 돼.
 > **MDP**: 강화학습 문제를 수학적으로 정의하는 틀
-	**Bellman equation**: MDP에서 value를 계산하는 기본 관계식
-	**TD Learning**: Bellman equation을 경험 데이터로 근사해서 학습하는 강화학습 방법
+**Bellman equation**: MDP에서 value를 계산하는 기본 관계식
+**TD Learning**: Bellman equation을 경험 데이터로 근사해서 학습하는 강화학습 방법
 즉, MDP도 강화학습에서 계속 사용해.
 강화학습에서도 문제를 풀려면 반드시 이런 걸 정해야 해.
 <table header-row="true">
@@ -4873,8 +4802,8 @@ old estimate는 **업데이트하기 전의 기존 Q값**이야.
 조금만 이동시켜.
 예:
 > old estimate: 10
-	new target: 14
-	updated estimate: 11 또는 12 정도
+new target: 14
+updated estimate: 11 또는 12 정도
 즉, TD Learning은 기존 추정값을 새로운 경험을 반영해서 조금 수정하는 방식이야.
 ---
 # 9. ϵ\\epsilonϵ-greedy SARSA는 뭐야?
@@ -4883,10 +4812,10 @@ SARSA 자체는 업데이트 방식이고,
 ϵ\\epsilonϵ-greedy는 action을 고르는 방식이야.
 즉:
 > SARSA = Q값을 업데이트하는 알고리즘
-	ϵ\\epsilonϵ-greedy = 행동을 선택하는 정책
+ϵ\\epsilonϵ-greedy = 행동을 선택하는 정책
 그래서 ϵ\\epsilonϵ-greedy SARSA는:
 > action은 ϵ\\epsilonϵ-greedy로 고르고,
-	업데이트는 SARSA 방식으로 하는 알고리즘
+업데이트는 SARSA 방식으로 하는 알고리즘
 이야.
 ---
 # 10. Q-learning에서 q는 그 action-value function 맞아?
@@ -4965,7 +4894,7 @@ Q-learning에서는 같은 Q값을 이용해서 두 가지를 동시에 해.
 라고 평가해.
 즉, 같은 Q가:
 > “B가 제일 좋아!”
-	“그리고 B의 가치는 5야!”
+“그리고 B의 가치는 5야!”
 를 둘 다 말하는 거야.
 문제는 이 Q가 아직 부정확하면,
 우연히 높게 나온 값을 스스로 선택하고 스스로 믿어버릴 수 있어.
@@ -4993,7 +4922,7 @@ Q1, Q2
 </table>
 즉,
 > Q1Q_1Q1이 “B가 좋아 보인다”고 선택하면,
-	Q2Q_2Q2가 “B의 가치는 이 정도다”라고 평가해.
+Q2Q_2Q2가 “B의 가치는 이 정도다”라고 평가해.
 이렇게 하면 한 Q가 자기 혼자 고르고 자기 혼자 평가하는 문제를 줄일 수 있어.
 그래서 네 말처럼:
 > Q가 자기 자신이 선택한 action을 자기 자신이 평가해서 생기는 과대평가를 줄이기 위해 Double learning이 나온 것
@@ -5003,8 +4932,8 @@ Q1, Q2
 Bellman equation은 MDP에서 value가 만족해야 하는 관계야.
 예를 들어 Q-value는 기본적으로 이런 관계를 가져.
 > 현재 Q값
-	= 지금 받은 reward
-	- 다음 상태의 미래 가치
+= 지금 받은 reward
+- 다음 상태의 미래 가치
 TD Learning은 이걸 그대로 사용해.
 다만 Bellman equation에서는 원래 모든 가능한 다음 상태를 확률로 평균내야 해.
 즉, 원래는:
@@ -5019,7 +4948,7 @@ TD Learning은:
 야.
 그래서 TD Learning이 Bellman equation 기반이라는 말은:
 > Bellman equation의 “현재 가치 = 즉시 reward + 다음 가치” 구조를 사용하되,
-	전체 확률 평균 대신 실제 sample transition으로 업데이트한다
+전체 확률 평균 대신 실제 sample transition으로 업데이트한다
 는 뜻이야.
 ---
 # 15. Bellman은 MDP 푸는 방정식 아니야?
@@ -5050,7 +4979,7 @@ Bellman equation은 MDP에서 value function을 구하는 핵심 방정식이야
 </table>
 즉,
 > Bellman equation은 기본 원리
-	TD Learning은 그 원리를 sample로 적용하는 학습 방법
+TD Learning은 그 원리를 sample로 적용하는 학습 방법
 이야.
 ---
 # 16. 전체 흐름을 한 번에 보면
@@ -5062,7 +4991,7 @@ Bellman equation은 MDP에서 value function을 구하는 핵심 방정식이야
 # 08] Deep Q-Network
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 이 자료는 한마디로:
@@ -5247,7 +5176,7 @@ Naive DQN은 단순히 Q-learning의 Q-table을 neural network로 바꾼 형태�
 흐름은 이거야.
 1. ϵ\\epsilonϵ-greedy로 action 선택
 2. transition (s,a,r,s′) 관찰
-	(s,a,r,s′)(s,a,r,s')
+(s,a,r,s′)(s,a,r,s')
 3. target 계산
 4. loss 계산
 5. gradient descent로 network 업데이트
@@ -5367,7 +5296,7 @@ DQN의 전체 흐름은 이렇게 보면 돼.
 1. 현재 Q-network와 target network를 초기화한다.
 2. ϵ\\epsilonϵ-greedy policy로 action을 선택한다.
 3. 환경에서 transition (s,a,r,s′)을 얻는다.
-	(s,a,r,s′)(s,a,r,s')
+(s,a,r,s′)(s,a,r,s')
 4. 이 transition을 replay buffer에 저장한다.
 5. buffer에서 mini-batch를 random sampling한다.
 6. target network로 target 값을 계산한다.
@@ -5386,7 +5315,7 @@ y
 의 차이를 줄이는 방향으로 학습해.
 쉽게 말하면:
 > “이 state-action의 Q값은 이 정도여야 한다”라는 target을 만들고,
-	network가 그 target에 가까워지도록 학습한다.
+network가 그 target에 가까워지도록 학습한다.
 그래서 자료에서는 이것을 **Q-function regression**이라고 설명해.
 ---
 # 15. DQN의 장점
@@ -5645,7 +5574,7 @@ network가 예측하는 여러 state-action의 Q값이 동시에 바뀔 수 있�
 </table>
 그래서 DQN에서는 target network를 따로 둬.
 > current network는 계속 학습하고,
-	target network는 천천히 업데이트해서 target을 안정화한다.
+target network는 천천히 업데이트해서 target을 안정화한다.
 자료에서도 target network는 **non-stationary target**, 즉 계속 바뀌는 target 문제를 줄이기 위한 방법이라고 설명해.
 ---
 # 4. 여기서 sample이 뭐야?
@@ -5709,11 +5638,11 @@ agent가 action을 선택해.
 > a=a =a= 10개 주문
 그 action을 environment에 적용해.
 > 수요가 발생함
-	재고가 변함
-	비용이 계산됨
+재고가 변함
+비용이 계산됨
 그러면 environment가 결과를 줘.
 > reward rrr
-	next state s′s's′
+next state s′s's′
 그래서 transition을 얻는다는 건:
 > 내가 action을 했더니 환경이 반응해서 (s,a,r,s′)(s,a,r,s')(s,a,r,s′)라는 경험 하나가 생겼다
 는 뜻이야.
@@ -5740,7 +5669,7 @@ TD Learning은 **transition probability 없이 가능**한 거지,
 </table>
 즉, TD는 이런 확률표는 몰라도 돼.
 > 이 action을 하면 다음 상태 A로 갈 확률 0.3
-	다음 상태 B로 갈 확률 0.7
+다음 상태 B로 갈 확률 0.7
 하지만 실제 경험은 필요해.
 > 이번에 해봤더니 s′s's′로 갔고 reward rrr을 받았다.
 자료에서도 TD는 **raw experience, 즉 MDP의 sample transition으로부터 직접 학습한다**고 설명해.
@@ -5821,21 +5750,21 @@ a′maxQ(s′,a′)
 # 10. 전체 흐름을 다시 정리하면
 DQN의 흐름은 이렇게야.
 1. 현재 state s를 본다.
-	ss
+ss
 2. ϵ\\epsilonϵ-greedy로 action a를 선택한다.
-	aa
+aa
 3. environment에 action을 적용한다.
 4. reward r, next state s′를 받는다.
-	rr
-	s′s'
+rr
+s′s'
 5. transition (s,a,r,s′)을 replay buffer에 저장한다.
-	(s,a,r,s′)(s,a,r,s')
+(s,a,r,s′)(s,a,r,s')
 6. buffer에서 transition sample들을 random하게 뽑는다.
 7. target network로 target y를 만든다.
-	yy
+yy
 8. current network의 예측값 Qθ(s,a)와 target y의 차이를 줄인다.
-	Qθ(s,a)Q_\\theta(s,a)
-	yy
+Qθ(s,a)Q_\\theta(s,a)
+yy
 9. 이 과정을 반복하면서 Q-function을 학습한다.
 ---
 # 진짜 핵심만 압축하면
@@ -5851,7 +5780,7 @@ DQN의 흐름은 이렇게야.
 # REINFORCE
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 한마디로 말하면:
@@ -6011,7 +5940,7 @@ REINFORCE는 episode를 하나 실행해보고 이렇게 판단해.
 > GtG_tGt(return)가 크면, 그 action의 확률을 높이는 방향으로 업데이트한다.
 즉:
 > 결과가 좋았던 행동은 더 자주 하게 만들고,
-	결과가 나빴던 행동은 덜 하게 만든다.
+결과가 나빴던 행동은 덜 하게 만든다.
 ---
 # 9. GtG_tGt, Return after t
 REINFORCE는 Monte Carlo 방식이야.
@@ -6258,7 +6187,7 @@ quiz 형식이면 아래는 깊게 안 외워도 돼.
 - stochastic policy
 - gradient ascent
 - Monte Carlo return Gt
-	GtG_t
+GtG_t
 - REINFORCE의 장단점
 - baseline의 역할
 - baseline과 Actor-Critic 연결
@@ -6340,7 +6269,7 @@ quiz 형식이면 아래는 깊게 안 외워도 돼.
 # Actor-Critic
 
 ---
-<table_of_contents color="gray"/>
+## 목차
 ---
 ## 1. 이 PDF의 큰 주제
 한마디로 말하면:
@@ -6431,13 +6360,13 @@ Critic:
 ```
 자료 표현으로는:
 > Actor decides which action to take.
-	Critic evaluates how good the selected action was.
-	Actor is updated using the critic’s evaluation.
+Critic evaluates how good the selected action was.
+Actor is updated using the critic’s evaluation.
 ---
 # 5. Advantage Function이 뭐야?
 Actor-Critic에서 매우 중요한 개념이 **advantage**야.
 Advantage는 쉽게 말하면:
-> **그 action이**<span color="red">** 평균보다 **</span>**얼마나 좋았는가**
+> **그 action이**** 평균보다 ****얼마나 좋았는가**
 를 나타내.
 수식은:
 Aπ(st,at)=Qπ(st,at)−Vπ(st)A\^\\pi(s_t,a_t) = Q\^\\pi(s_t,a_t) - V\^\\pi(s_t)
@@ -6598,7 +6527,7 @@ Lactor=−log⁡πθ(at∣st)δtL_\{\\text\{actor\}\} = -\\log \\pi_\\theta(a_t\
 Lactor=−logπθ(at∣st)δt
 뜻:
 > δt\\delta_tδt가 양수이면 해당 action의 확률을 높이고,
-	δt\\delta_tδt가 음수이면 해당 action의 확률을 낮추도록 학습
+δt\\delta_tδt가 음수이면 해당 action의 확률을 낮추도록 학습
 ---
 # 14. Entropy Bonus
 Entropy bonus는 exploration을 유지하기 위한 장치야.
