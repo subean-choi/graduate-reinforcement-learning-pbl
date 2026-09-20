@@ -37,13 +37,13 @@
 ---
 #### 1-1. 추가적으로 고려한 제약
 - 기존 수요 가정
-$$
+```math
 d_{t} \thicksim Poisson(25)
-$$
+```
 - 확장 수요 가정
-$$
+```math
 d_{t} \thicksim Poisson(\lambda_{t})
-$$
+```
 - λt는 시간 t에 따라 변하는 평균 수요
 - 성수기에는 λt 증가
 - 비수기에는 λt 감소
@@ -62,50 +62,50 @@ $$
 ### 2. MDP 환경 수학적 정의
 ---
 #### State
-$$
+```math
 s_{t} = (x_{t},t)
-$$
+```
 - xt : 현재 재고량
 - t : 현재 시점
 - 기존 모형은 재고량만 고려했지만, 계절성 수요에서는 시간이 중요
 - 같은 재고량이라도 성수기인지 비수기인지에 따라 주문량이 달라질 수 있음
 ---
 #### Action → 현재 시점에 몇 개를 주문할지 결정
-$$
+```math
 a_{t}=q_{t}\\
 q_t \in \{0,1,\dots,M\}
-$$
+```
 - qt: 시점 t의 주문량
 - 한 번에 최대 M개까지 주문 가능
 ---
 #### Demand
-$$
+```math
 d_{t} \thicksim Poisson(\lambda_{t})
-$$
+```
 - λt: 시점에 따라 변하는 평균 수요
 - 계절성 수요에서는 평균 수요가 항상 같지 않음
 - 예시 :
-$$
+```math
 \lambda_t =
 \begin{cases}
 \lambda_{high}, & \text{성수기} \\
 \lambda_{low}, & \text{비수기}
 \end{cases}
-$$
+```
 ---
 #### Transition
-$$
+```math
 x_{t+1} = \min \left(C, \max(x_t + q_t - d_t, 0)\right)\\z_t = \max(d_t - (x_t + q_t), 0)
-$$
+```
 - xt+1: 다음 재고량
 - zt: 결품량
 - C: 창고 물량
 - 재고는 0보다 작아질 수 없고, 창고 용량 C를 넘을 수 없음
 ---
 #### Reward
-$$
+```math
 r_t = - \left(Ky_t + cq_t + hx_{t+1} + pz_t\right)
-$$
+```
 - Ky_t: 주문 고정비
 - cq_t: 단위 주문 비용
 - hx_(t+1): 재고 유지 비용
@@ -114,18 +114,18 @@ $$
 - 강화학습은 보상을 최대화하는 구조이므로, 비용의 음수를 reward로 사용
 ---
 #### Objective
-$$
+```math
 \max_{\pi} E \left[\sum_{t=0}^{T-1} r_t \right]
-$$
+```
 - 강화학습의 목표는 전체 기간 동안 받을 보상의 합을 최대화하는 것
 - 하지만 reward가 비용의 음수이므로, 실제 의미는 총비용 최소화
 즉,
-$$
+```math
 \min_{\pi} E \left[
 \sum_{t=0}^{T-1}
 \left(Ky_t + cq_t + hx_{t+1} + pz_t\right)
 \right]
-$$
+```
 ---
 ## 제약 2. 입고 지연을 고려한 재고관리
 
@@ -142,9 +142,9 @@ $$
 - 확장 모형
 - 주문 후 L기간 뒤에 입고
 - 시점 t에 주문한 qt는 t+L 시점에 입고
-$$
+```math
 q_t \rightarrow t+L \text{ 시점에 입고}
-$$
+```
 - 아직 도착하지 않은 주문량을 pipeline inventory로 관리
 #### 1-2. 왜 고려했는가
 - 현실에서는 주문 즉시 상품이 도착하지 않음
@@ -163,9 +163,9 @@ $$
 ---
 #### State
 lead time이 L일 때 상태는 다음과 같이 정의
-$$
+```math
 s_t = \left(x_t, t, u_t^{(1)}, u_t^{(2)}, \dots, u_t^{(L)}\right)
-$$
+```
 - xt: 현재 재고량
 - t: 현재 시점
 - ut(1): 다음 기간에 입고될 주문량
@@ -175,79 +175,79 @@ $$
 - 따라서 앞으로 도착할 주문량까지 state에 포함해야 함
 ---
 #### Action
-$$
+```math
 a_t = q_t\\q_t \in \{0, 1, 2, \dots, M\}
-$$
+```
 - qt: 현재 시점의 주문량
 - 단, 주문한 물량은 즉시 재고로 사용되지 않음
 - L기간 뒤 입고
 ---
 #### Demand
-$$
+```math
 d_t \sim P(D)\\
-$$
+```
 예시 1 :
-$$
+```math
 d_t \sim \text Uniform(0, 50)
-$$
+```
 예시 2:
-$$
+```math
 d_t \sim Poisson(25)
-$$
+```
 ---
 #### Transition
 - 먼저 도착 예정이었던 주문량이 입고됨
 - 이번 시점에 도착하는 물량은 ut(1)
 - 즉, 과거에 주문했던 물량 중 도착 시점이 된 물량이 현재 재고에 추가됨
-$$
+```math
 arrival_t = u_t^{(1)}
-$$
+```
 - 입고 후 재고
 - 창고 용량 C를 넘을 수 없기 때문에 min(C,⋅) 사용
-$$
+```math
 \tilde{x}_t = \min(C, x_t + arrival_t)
-$$
+```
 - 수요 발생 후 다음 재고
 - 입고 후 재고에서 수요만큼 빠짐
 - 재고는 0보다 작아질 수 없음
-$$
+```math
 x_{t+1} = \max(\tilde{x}_t - d_t, 0)
-$$
+```
 - 결품량
 - 수요가 입고 후 재고보다 크면 부족한 만큼 결품 발생
 - 수요를 모두 만족하면 결품은 0
-$$
+```math
 z_t = \max(d_t - \tilde{x}_t, 0)
-$$
+```
 - 새 주문량 qt는 파이프라인 마지막에 들어감
-$$
+```math
 u_{t+1}^{(L)} = q_t
-$$
+```
 - 기존 파이프라인은 한 칸씩 앞으로 이동
-$$
+```math
 u_{t+1}^{(i)} = u_t^{(i+1)}, \quad i = 1, 2, \dots, L-1
-$$
+```
 ---
 #### Reward
-$$
+```math
 r_t = - \left(Ky_t + cq_t + hx_{t+1} + pz_t\right)
-$$
+```
 - Ky_t: 주문 고정비
 - cq_t: 단위 주문 비용
 - hx_(t+1): 재고 유지 비용
 - pz_t: 결품 비용
 ---
 #### Objective
-$$
+```math
 \max_{\pi} E \left[\sum_{t=0}^{T-1} r_t \right]
-$$
+```
 즉,
-$$
+```math
 \min_{\pi} E \left[
 \sum_{t=0}^{T-1}
 \left(Ky_t + cq_t + hx_{t+1} + pz_t\right)
 \right]
-$$
+```
 ---
 
 ---
@@ -346,12 +346,13 @@ $$
 <td>optimal policy, heuristic policy</td>
 </tr>
 </table>
+
 ### 3. MDP 환경 정의
 - **state**
 >
-$$
+```math
 s_t = (IN(t), N_2(t), N_1(t))
-$$
+```
 - IN(t) : 순재고
 - 현재 보유 재고에서 backlog를 뺀 값
 - 지금 재고가 얼마나 있는지
@@ -366,17 +367,17 @@ $$
 - 긴급 공급처에 주문할지
 - 얼마나 주문할지
 - 아무것도 하지 않을지를 결정
-$$
+```math
 a_t = (q_t^N, q_t^E)
-$$
+```
 - qt\^N : normal source 주문량
 - qt\^E : emergency source 주문량
 - **Demand **
 >
 논문에서는 수요가 Poisson process
-$$
+```math
 d_t \sim Poisson(\lambda)
-$$
+```
 - λ : 평균 수요율
 - 수요는 확률적으로 발생
 - 수요가 재고보다 많으면 backlog가 증가
@@ -389,9 +390,9 @@ $$
 - 긴급 공급처:
 - server 1을 건너뛰고 server 2로 바로 이동
 →   처리시간은 exponential distribution을 따름
-$$
+```math
 T_i \sim Exp(\mu_i), \quad i = 1,2
-$$
+```
 - μi : server i의 처리율
 - 처리시간이 확률적이므로 실제 리드타임도 확률적으로 변함
 - **Transition**
@@ -402,25 +403,25 @@ $$
 2. server 1 처리 완료
 3. server 2 처리 완료
 1. 수요 발생 → 수요가 발생하면 순재고가 감소
-$$
+```math
 IN(t+1) = IN(t) - d_t
-$$
+```
 - 재고가 충분하면 재고 감소
 - 재고가 부족하면 backlog 증가
 2. server 1 처리 완료 → server 1에서 처리가 끝나면 주문이 server 2로 이동
-$$
+```math
 N_1(t+1) = N_1(t) - 1
-$$
-$$
+```
+```math
 N_2(t+1) = N_2(t) + 1
-$$
+```
 3. server 2 처리 완료 → server 2에서 처리가 끝나면 제품이 재고로 입고
-$$
+```math
 N_2(t+1) = N_2(t) - 1
-$$
-$$
+```
+```math
 IN(t+1) = IN(t) + 1
-$$
+```
 - **Cost**
 >
 논문의 비용은 다음 요소로 구성 :
@@ -431,19 +432,19 @@ $$
 - h2 : server 2에 있는 주문의 holding cost
 - h : 완제품 재고 holding cost
 - b : backlog cost
-$$
+```math
 Cost_t = c_1 q_t^N + c_2 q_t^E + h_1 N_1(t) + h_2 N_2(t) + h(IN(t))^+ + b(IN(t))^-
-$$
+```
 1. 양의 재고
-$$
+```math
 (IN(t))^+ = \max(IN(t), 0)
-$$
+```
 - IN(t)\>0 → 실제로 창고에 남아 있는 재고
 - IN(t)\<0 → 재고는 없으므로 0
 2. Backlog
-$$
+```math
 (IN(t))^- = \max(-IN(t), 0)
-$$
+```
 - IN(t)\<0이면 아직 처리하지 못한 밀린 주문량
 - IN(t)\>0이면 backlog는 0
 - **Objective**
@@ -462,9 +463,9 @@ $$
 - 2번 뒤 비용: (0.9)\^2Cost2 = 0.81Cost2
 - 10번 뒤 비용: (0.9)\^10Cost10
 - 0\<γ\<1
-$$
+```math
 \min_{\pi} E_{\pi} \left[\sum_{t=0}^{\infty} \gamma^t Cost_t \right]
-$$
+```
 1. Long-run average cost
 - 아주 긴 기간 동안 운영한다고 가정
 - 전체 비용을 기간 수로 나누어 **기간당 평균 비용**을 최소화
@@ -472,9 +473,9 @@ $$
 - 1000/100 = 10
 - 즉, 하루 평균 비용은 10
 - 장기적으로 안정적인 운영 정책을 찾는 목적함수
-$$
+```math
 \min_{\pi} \limsup_{T \to \infty} \frac{1}{T} E_{\pi} \left[\sum_{t=0}^{T-1} Cost_t \right]
-$$
+```
 ---
 ## 논문 2. Dual Sourcing + Order Tracking + Uncertain Lead Times
 
@@ -555,6 +556,7 @@ $$
 <td>DP로 최적정책 분석 + heuristic 제안</td>
 </tr>
 </table>
+
 ### 3. [논문 1]과 다른점 
 #### Order Tracking
 - 주문이 단순히 “아직 안 왔다”가 아니라, 어느 정도 처리되었는지를 추적함
@@ -567,9 +569,9 @@ $$
 ### 4. MDP 환경 정의
 - **State**
 >
-$$
+```math
 s_t = (IN(t), W_2(t), N_2(t), W_1(t), N_1(t))
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -601,19 +603,19 @@ $$
 - 즉, 주문이 각 server에서 얼마나 진행되었는지를 나타냄
 - **State 축소**
 > 5차원 state를 그대로 쓰면 복잡하므로, 다음 3개 변수로 줄임
-$$
+```math
 X(t) = IN(t) + W_2(t)
-$$
-$$
+```
+```math
 Y(t) = N_2(t) - W_2(t)
-$$
-$$
+```
+```math
 Z(t) = N_1(t) - W_1(t)
-$$
+```
 - 축소된 state :
-$$
+```math
 s_t = (X(t), Y(t), Z(t))
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -638,9 +640,9 @@ $$
 - Z(t): server 1이 얼마나 밀려 있는지
 - **Action**
 > 논문에서 action은 두 공급처에서 얼마나 주문할지를 결정하는 것
-$$
+```math
 a_t = (q_1, q_2)
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -661,9 +663,9 @@ $$
 - emergency source는 더 빠르지만 단위 주문 비용이 더 높음
 - **Demand**
 > 수요는 Poisson process를 따름
-$$
+```math
 D_t \sim Poisson(\lambda)
-$$
+```
 - λ : 수요 도착률
 - 수요가 발생하면 보유재고에서 차감
 - 재고가 부족하면 backlogging 또는 lost sales로 처리
@@ -711,12 +713,12 @@ $$
 <td>여러 공정 단계를 지나야 끝남</td>
 </tr>
 </table>
-$$
+```math
 T_1 \sim Erlang(r, \mu_1)
-$$
-$$
+```
+```math
 T_2 \sim Erlang(k, \mu_2)
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -751,34 +753,34 @@ $$
 4. server 2 처리 완료 후 입고
 1. **수요 발생**
 수요가 발생하면 순재고가 감소
-$$
+```math
 IN(t+1) = IN(t) - 1
-$$
+```
 - 재고가 있으면 재고 감소
 - 재고가 없으면 backlog 증가 또는 lost sales 발생
 2. **server 1 처리 진행**
 server 1에서 processing phase가 하나 완료되면 W1(t)가 증가
-$$
+```math
 W_1(t) \rightarrow W_1(t) + \frac{1}{r}
-$$
+```
 - r개의 phase 중 하나가 완료되었다는 의미
 - 마지막 phase가 끝나면 해당 주문은 server 2로 이동
 3. **server 2 처리 진행**
 server 2에서 processing phase가 하나 완료되면 W2(t)가 증가
-$$
+```math
 W_2(t) \rightarrow W_2(t) + \frac{1}{k}
-$$
+```
 - k개의 phase 중 하나가 완료되었다는 의미
 - 마지막 phase가 끝나면 재고로 입고됨
 4. **server 2 처리 완료 후 입고**
 server 2 처리가 모두 끝나면 재고가 1개 증가
-$$
+```math
 IN(t+1) = IN(t) + 1
-$$
+```
 - **Cost**
 > 논문에서는 주문 비용, 재고 보유 비용, backlog 또는 shortage 비용을 고려
 - **기본 비용식**
-$$
+```math
 c(X(t),Y(t),Z(t))
 =
 h\lfloor X(t)^+ \rfloor
@@ -788,7 +790,7 @@ b\lceil X(t)^- \rceil
 h_2\lceil Y(t)\rceil
 +
 h_1\lceil Z(t)\rceil
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -814,13 +816,13 @@ $$
 </table>
 - **Objective**
 > 논문의 목표는 무한 기간에서 기대 할인 비용을 최소화하는 것
-$$
+```math
 \min_{\pi} E_{\pi}
 \left[
 \sum_{t=0}^{\infty}
 \alpha^t Cost_t
 \right]
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -855,9 +857,9 @@ $$
 - 실제 리드타임은 고정값이 아니라 지연될 수 있음
 - 기존 toy model과 맞추기 위해 backlog가 아니라 **결품/lost sales** 구조 사용
 #### State
-$$
+```math
 s_t = (x_t, t, P_t^R, P_t^E)
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -887,21 +889,21 @@ $$
 - 이 정보를 state에 넣는 이유 → 이미 주문한 물량이 미래에 도착해서 재고에 영향을 주기 때문
 #### Pipeline 표현
 조금 더 구체적으로 쓰면, 각 공급처의 pipeline을 벡터로 둘 수 있음
-$$
+```math
 P_t^R = (p_{t,1}^R, p_{t,2}^R, \dots, p_{t,L_{\max}^R}^R)
-$$
-$$
+```
+```math
 P_t^E = (p_{t,1}^E, p_{t,2}^E, \dots, p_{t,L_{\max}^E}^E)
-$$
+```
 - 의미 :
 - p_(t,1)\^R : 일반 공급처 주문 중 1기간 뒤 도착 예정 물량
 - p_(t,2)\^R : 일반 공급처 주문 중 2기간 뒤 도착 예정 물량
 - p_(t,1)\^E : 긴급 공급처 주문 중 1기간 뒤 도착 예정 물량
 - 즉, pipeline은 “이미 주문했는데 아직 안 온 물량”을 도착 예정 시점별로 저장하는 구조
 #### Action
-$$
+```math
 a_t = (q_t^R, q_t^E)
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -919,32 +921,32 @@ $$
 </table>
 - **주문량 제약**
 - 기존 toy model의 주문 상한 M을 유지하면 다음과 같이 표현 가능
-$$
+```math
 q_t^R + q_t^E \le M
-$$
-$$
+```
+```math
 q_t^R, q_t^E \in \{0,1,\dots,M\}
-$$
+```
 - 즉, 총 주문량은 최대 M개까지 가능하고, 그 안에서 일반 주문과 긴급 주문을 나누는 구조
 #### Demand
-$$
+```math
 d_t \sim P_D
-$$
+```
 1. Uniform
-$$
+```math
 d_t \sim Uniform(0,\lambda)
-$$
+```
 2. Poisson
-$$
+```math
 d_t \sim Poisson(\lambda)
-$$
+```
 #### Lead Time 불확실성
-$$
+```math
 L_t^R = \bar{L}^R + \Delta_t^R
-$$
-$$
+```
+```math
 L_t^E = \bar{L}^E + \Delta_t^E
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -969,42 +971,42 @@ $$
 </tr>
 </table>
 - 관계
-$$
+```math
 \bar{L}^R > \bar{L}^E
-$$
+```
 - 일반 공급처는 싸지만 느림
 - 긴급 공급처는 비싸지만 빠름
 - 하지만 둘 다 지연될 수 있음
 #### Arrival
 시점 t에 실제로 도착하는 물량은 과거에 주문한 것 중 리드타임이 끝난 물량
 - **일반 공급처 입고량**
-$$
+```math
 A_t^R = \sum_{\tau=0}^{t-1} q_{\tau}^R \cdot \mathbf{1}_{\{\tau + L_{\tau}^R = t\}}
-$$
+```
 - **긴급 공급처 입고량**
-$$
+```math
 A_t^E = \sum_{\tau=0}^{t-1} q_{\tau}^E \cdot \mathbf{1}_{\{\tau + L_{\tau}^E = t\}}
-$$
+```
 - **전체 입고량**
-$$
+```math
 A_t = A_t^R + A_t^E
-$$
+```
 - 과거에 주문한 물량 중 오늘 도착할 차례가 된 것만 현재 재고에 더해짐
 - τ는 **과거의 주문 시점**
 - 즉 과거 시점 τ + Lead time = t (오늘) → 1 (오늘 입고됨)
 #### Transition
 - 입고 후 사용 가능한 재고
-$$
+```math
 I_t = x_t + A_t
-$$
+```
 - 수요가 발생한 뒤 다음 재고
-$$
+```math
 x_{t+1} = \min(C, \max(I_t - d_t, 0))
-$$
+```
 - 결품량
-$$
+```math
 z_t = \max(d_t - I_t, 0)
-$$
+```
 - 여기서는 backlog가 아니라 lost sales 구조라서, 결품된 수요는 다음 기간으로 넘어가지 않고 비용으로만 반영 
 <table header-row="true">
 
@@ -1029,13 +1031,14 @@ $$
 <td>창고 용량</td>
 </tr>
 </table>
+
 #### Cost
-$$
+```math
 Cost_t =
 K_R y_t^R + K_E y_t^E
 + c_R q_t^R + c_E q_t^E
 + h x_{t+1} + p z_t
-$$
+```
 <table header-row="true">
 
 <tr>
@@ -1068,46 +1071,46 @@ $$
 </tr>
 </table>
 - 일반적으로 긴급 공급처가 더 비싸므로 
-$$
+```math
 c_E > c_R
-$$
+```
 #### 주문 여부 변수
 주문 고정비를 계산하려면 주문 여부 변수가 필요
 → 주문 고정비 : 주문을 한 번 넣을 때마다 무조건 발생하는 비용
 - **일반 공급처 주문 여부**
-$$
+```math
 y_t^R =
 \begin{cases}
 1, & q_t^R > 0 \\
 0, & q_t^R = 0
 \end{cases}
-$$
+```
 - **긴급 공급처 주문 여부**
-$$
+```math
 y_t^E =
 \begin{cases}
 1, & q_t^E > 0 \\
 0, & q_t^E = 0
 \end{cases}
-$$
+```
 #### Reward
 강화학습에서는 비용을 최소화하고 싶지만, 알고리즘은 reward를 최대화
-$$
+```math
 r_t = -Cost_t
-$$
+```
 - 즉, 비용이 작을수록 reward가 커짐
 #### Objective
 - **비용 최소화 관점**
-$$
+```math
 \min_{\pi} E_{\pi}\left[\sum_{t=0}^{T-1} Cost_t\right]
-$$
+```
 - **강화학습 reward 관점**
-$$
+```math
 \max_{\pi} E_{\pi}
 \left[
 \sum_{t=0}^{T-1} r_t
 \right]
-$$
+```
 - 총 비용 최소화 = 누적 reward 최대화
 ---
 
@@ -1746,6 +1749,7 @@ RL은 환경과 상호작용하면서 decision policy를 학습한다.
 <td>공장 capacity 제한, 재고 균형, 품절 불가</td>
 </tr>
 </table>
+
 ## 5. True/False 대비 문장
 이 정도 문장만 판단할 수 있으면 충분해.
 <table header-row="true">
@@ -3263,6 +3267,7 @@ Single-period 예시:
 <td>남은 재고 보유 비용</td>
 </tr>
 </table>
+
 ## 9-2. 주요 의사결정변수
 <table header-row="true">
 <tr>
@@ -5816,6 +5821,7 @@ REINFORCE는 조금 달라.
 <td>A2C, A3C, DDPG</td>
 </tr>
 </table>
+
 ## 중요 차이
 **DQN**은 value-based야.
 > 이 action이 얼마나 좋은지 Q(s,a)Q(s,a)Q(s,a)를 학습
